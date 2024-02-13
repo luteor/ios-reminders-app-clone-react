@@ -1,0 +1,70 @@
+{
+  "reminderLists": [
+    {
+      "id": 1,
+      "name": "Groceries",
+      "reminders": [
+        {
+          "id": 1,
+          "content": "Buy milk",
+          "notes": "Prefer semi-skimmed milk.",
+          "tags": ["Essential"],
+          "reminderDate": "2024-02-15T08:00:00",
+          "priority": "medium",
+          "url": "",
+          "images": []
+        },
+        {
+          "id": 2,
+          "content": "Buy eggs",
+          "description": "Need eggs for the cake recipe.",
+          "tags": [],
+          "reminderDate": "2024-02-16T10:00:00",
+          "priority": "high",
+          "notes": "",
+          "url": "",
+          "images": []
+        },
+        {
+          "id": 3,
+          "content": "Buy vegetables",
+          "description": "Buy vegetables for the week.",
+          "notes": "Prefer organic vegetables.",
+          "tags": ["Health"],
+          "priority": "medium",
+          "reminderDate": "",
+          "url": "",
+          "images": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Household chores",
+      "reminders": [
+        {
+          "id": 4,
+          "content": "Do laundry",
+          "description": "Don't forget to do laundry tonight.",
+          "priority": "low",
+          "notes": "",
+          "tags": [],
+          "reminderDate": "",
+          "url": "",
+          "images": []
+        },
+        {
+          "id": 5,
+          "content": "Clean the kitchen",
+          "description": "Clean the kitchen countertops and table.",
+          "priority": "medium",
+          "notes": "",
+          "tags": [],
+          "reminderDate": "",
+          "url": "",
+          "images": []
+        }
+      ]
+    }
+  ]
+}
