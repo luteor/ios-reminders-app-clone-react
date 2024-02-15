@@ -1,11 +1,12 @@
-import { Content } from "./Content";
-import { Sidebar } from "./Sidebar";
+import { Content } from "@components/Content";
+import { Sidebar } from "@components/Sidebar";
 
-function App() {
+function App({ reminderData }) {
+  console.log(reminderData);
   return (
     <div className="flex h-lvh flex-row">
-      <Sidebar />
-      <Content />
+      <Sidebar reminderLists={reminderData} />
+      <Content reminderList={reminderData[0]} />
     </div>
   );
 }

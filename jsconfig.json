@@ -4,6 +4,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "checkJs": true,
     "jsx": "react-jsx",
     "paths": {
