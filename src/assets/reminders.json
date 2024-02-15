@@ -12,7 +12,8 @@
           "reminderDate": "2024-02-15T08:00:00",
           "priority": "medium",
           "url": "",
-          "images": []
+          "images": [],
+          "state": false
         },
         {
           "id": 2,
@@ -23,7 +24,8 @@
           "priority": "high",
           "notes": "",
           "url": "",
-          "images": []
+          "images": [],
+          "state": false
         },
         {
           "id": 3,
@@ -34,7 +36,8 @@
           "priority": "medium",
           "reminderDate": "",
           "url": "",
-          "images": []
+          "images": [],
+          "state": false
         }
       ]
     },
@@ -51,7 +54,8 @@
           "tags": [],
           "reminderDate": "",
           "url": "",
-          "images": []
+          "images": [],
+          "state": false
         },
         {
           "id": 5,
@@ -62,7 +66,8 @@
           "tags": [],
           "reminderDate": "",
           "url": "",
-          "images": []
+          "images": [],
+          "state": false
         }
       ]
     }
