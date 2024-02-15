@@ -1,12 +1,18 @@
-export const List = ({ listId, listTitle, setReminderListDisplayedId }) => {
-  const handleClickListItem = () => {
+export const List = ({
+  listId,
+  listTitle,
+  setReminderListDisplayedId,
+  setIsAllRemindersDisplayed,
+}) => {
+  const handleClickOnList = () => {
     setReminderListDisplayedId(listId);
+    setIsAllRemindersDisplayed(false);
   };
 
   return (
     <div
-      className="flex flex-row cursor-pointer items-center gap-2 justify-start "
-      onClick={handleClickListItem}
+      className="flex cursor-pointer flex-row items-center justify-start gap-2 "
+      onClick={handleClickOnList}
     >
       <i className="h-6 w-6 rounded-full bg-slate-600"></i>
       <span>{listTitle}</span>
