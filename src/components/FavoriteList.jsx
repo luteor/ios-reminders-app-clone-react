@@ -2,9 +2,11 @@ export const FavoriteList = ({
   listTitle,
   totalReminders,
   setIsAllRemindersDisplayed,
+  setReminderListDisplayedId,
 }) => {
   const handleClickOnFavoriteAllLists = () => {
     setIsAllRemindersDisplayed(true);
+    setReminderListDisplayedId(null);
   };
   return (
     <div

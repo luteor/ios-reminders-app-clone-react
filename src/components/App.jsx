@@ -6,7 +6,7 @@ import { Sidebar } from "@components/Sidebar";
 function App({ reminderData }) {
   const [reminderLists, setreminderLists] = useState(reminderData);
   const [isAllRemindersDisplayed, setIsAllRemindersDisplayed] = useState(true);
-  const [reminderListDisplayedId, setReminderListDisplayedId] = useState(1);
+  const [reminderListDisplayedId, setReminderListDisplayedId] = useState(null);
 
   return (
     <div className="flex h-lvh flex-row">
