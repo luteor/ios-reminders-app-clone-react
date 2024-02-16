@@ -7,12 +7,16 @@ export const Sidebar = ({
   setReminderListDisplayedId,
   setIsAllRemindersDisplayed,
 }) => {
+  const totalAllReminders = reminderLists.reduce(
+    (total, list) => total + list.reminders.length,
+    0,
+  );
   return (
     <div className="flex w-72 flex-col items-start justify-between bg-stone-100 p-2">
       <div className="flex flex-row flex-wrap justify-between gap-2">
         <FavoriteList
           listTitle={"All"}
-          totalReminders={0}
+          totalReminders={totalAllReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
           setReminderListDisplayedId={setReminderListDisplayedId}
         />
