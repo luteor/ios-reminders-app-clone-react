@@ -1,6 +1,11 @@
 import { Reminder } from "@components/Reminder";
 
-export const RemindersContainer = ({ listTitle, listReminders }) => {
+export const RemindersContainer = ({
+  listTitle,
+  listReminders,
+  setReminderLists,
+  reminderLists,
+}) => {
   const listRemindersTodo = listReminders.filter(
     (reminder) => reminder.state === false,
   );
@@ -9,7 +14,12 @@ export const RemindersContainer = ({ listTitle, listReminders }) => {
       {listTitle ? <div className="pb-2 text-xl">{listTitle}</div> : null}
 
       {listRemindersTodo.map((reminder) => (
-        <Reminder key={reminder.id} reminder={reminder} />
+        <Reminder
+          key={reminder.id}
+          reminder={reminder}
+          setReminderLists={setReminderLists}
+          reminderLists={reminderLists}
+        />
       ))}
     </div>
   );

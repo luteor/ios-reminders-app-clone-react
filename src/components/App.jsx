@@ -4,7 +4,7 @@ import { Content } from "@components/Content";
 import { Sidebar } from "@components/Sidebar";
 
 function App({ reminderData }) {
-  const [reminderLists, setreminderLists] = useState(reminderData);
+  const [reminderLists, setReminderLists] = useState(reminderData);
   const [isAllRemindersDisplayed, setIsAllRemindersDisplayed] = useState(true);
   const [reminderListDisplayedId, setReminderListDisplayedId] = useState(null);
 
@@ -19,6 +19,7 @@ function App({ reminderData }) {
         reminderLists={reminderLists}
         isAllRemindersDisplayed={isAllRemindersDisplayed}
         reminderListDisplayedId={reminderListDisplayedId}
+        setReminderLists={setReminderLists}
       />
     </div>
   );

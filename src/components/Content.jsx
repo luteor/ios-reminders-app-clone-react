@@ -6,6 +6,7 @@ export const Content = ({
   reminderLists,
   isAllRemindersDisplayed,
   reminderListDisplayedId,
+  setReminderLists,
 }) => {
   const reminderListDisplayed = reminderLists.find(
     (list) => list.id === reminderListDisplayedId,
@@ -39,12 +40,16 @@ export const Content = ({
               key={list.id}
               listTitle={list.name}
               listReminders={list.reminders}
+              setReminderLists={setReminderLists}
+              reminderLists={reminderLists}
             />
           ))
         ) : (
           <RemindersContainer
             listTitle={null}
             listReminders={reminderListDisplayed.reminders}
+            setReminderLists={setReminderLists}
+            reminderLists={reminderLists}
           />
         )}
       </div>
