@@ -3,26 +3,51 @@ import { ReminderListHeader } from "@components/ReminderListHeader";
 import { RemindersContainer } from "@components/RemindersContainer";
 
 export const Content = ({
-  reminderList,
-  reminderData,
+  reminderLists,
   isAllRemindersDisplayed,
+  reminderListDisplayedId,
 }) => {
-  console.log(reminderData);
+  const reminderListDisplayed = reminderLists.find(
+    (list) => list.id === reminderListDisplayedId,
+  );
+
+  const totalAllReminders = reminderLists.reduce(
+    (total, list) => total + list.reminders.length,
+    0,
+  );
+
   return (
     <div className="bg-grey-50 flex-grow overflow-auto p-2">
       <div className="pb-8 pl-2 pr-2">
         <AddReminderButton />
-        <ReminderListHeader
-          isAllRemindersDisplayed={isAllRemindersDisplayed}
-          reminderList={reminderList}
-          reminderData={reminderData}
-        />
+        {isAllRemindersDisplayed ? (
+          <ReminderListHeader
+            listTitle={"All"}
+            totalListReminders={totalAllReminders}
+          />
+        ) : (
+          <ReminderListHeader
+            listTitle={reminderListDisplayed.name}
+            totalListReminders={reminderListDisplayed.reminders.length}
+          />
+        )}
       </div>
-      <RemindersContainer
-        reminderList={reminderList}
-        reminderData={reminderData}
-        isAllRemindersDisplayed={isAllRemindersDisplayed}
-      />
+      <div>
+        {isAllRemindersDisplayed ? (
+          reminderLists.map((list) => (
+            <RemindersContainer
+              key={list.id}
+              listTitle={list.name}
+              listReminders={list.reminders}
+            />
+          ))
+        ) : (
+          <RemindersContainer
+            listTitle={null}
+            listReminders={reminderListDisplayed.reminders}
+          />
+        )}
+      </div>
     </div>
   );
 };
