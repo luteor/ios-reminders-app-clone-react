@@ -29,7 +29,6 @@ export const Sidebar = ({
           />
         ))}
       </div>
-
       <AddListButton />
     </div>
   );
