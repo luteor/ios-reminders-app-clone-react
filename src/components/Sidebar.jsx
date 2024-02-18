@@ -6,11 +6,20 @@ export const Sidebar = ({
   reminderLists,
   setReminderListDisplayedId,
   setIsAllRemindersDisplayed,
+  setIsCompletedRemindersDisplayed,
 }) => {
   const totalAllReminders = reminderLists.reduce(
     (total, list) => total + list.reminders.length,
     0,
   );
+
+  const totalCompletedReminders = reminderLists.reduce((total, list) => {
+    return (
+      total +
+      list.reminders.filter((reminder) => reminder.state === true).length
+    );
+  }, 0);
+
   return (
     <div className="flex w-72 flex-col items-start justify-between bg-stone-100 p-2">
       <div className="flex flex-row flex-wrap justify-between gap-2">
@@ -19,6 +28,14 @@ export const Sidebar = ({
           totalReminders={totalAllReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
           setReminderListDisplayedId={setReminderListDisplayedId}
+          setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+        />
+        <FavoriteList
+          listTitle={"Completed"}
+          totalReminders={totalCompletedReminders}
+          setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
+          setReminderListDisplayedId={setReminderListDisplayedId}
+          setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
         />
       </div>
       <div className="flex flex-col gap-2 p-2">

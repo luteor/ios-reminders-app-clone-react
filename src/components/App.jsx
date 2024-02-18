@@ -6,6 +6,8 @@ import { Sidebar } from "@components/Sidebar";
 function App({ reminderData }) {
   const [reminderLists, setReminderLists] = useState(reminderData);
   const [isAllRemindersDisplayed, setIsAllRemindersDisplayed] = useState(true);
+  const [isCompletedRemindersDisplayed, setIsCompletedRemindersDisplayed] =
+    useState(false);
   const [reminderListDisplayedId, setReminderListDisplayedId] = useState(null);
 
   return (
@@ -14,10 +16,12 @@ function App({ reminderData }) {
         reminderLists={reminderLists}
         setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
         setReminderListDisplayedId={setReminderListDisplayedId}
+        setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
       />
       <Content
         reminderLists={reminderLists}
         isAllRemindersDisplayed={isAllRemindersDisplayed}
+        isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
         reminderListDisplayedId={reminderListDisplayedId}
         setReminderLists={setReminderLists}
       />

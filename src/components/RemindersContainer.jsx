@@ -6,14 +6,11 @@ export const RemindersContainer = ({
   setReminderLists,
   reminderLists,
 }) => {
-  const listRemindersTodo = listReminders.filter(
-    (reminder) => reminder.state === false,
-  );
   return (
     <div className="pb-6">
       {listTitle ? <div className="pb-2 text-xl">{listTitle}</div> : null}
 
-      {listRemindersTodo.map((reminder) => (
+      {listReminders.map((reminder) => (
         <Reminder
           key={reminder.id}
           reminder={reminder}

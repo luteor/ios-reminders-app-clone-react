@@ -13,7 +13,8 @@
           "priority": "medium",
           "url": "",
           "images": [],
-          "state": false
+          "state": false,
+          "listName": "Groceries"
         },
         {
           "id": 2,
@@ -25,7 +26,8 @@
           "notes": "",
           "url": "",
           "images": [],
-          "state": false
+          "state": false,
+          "listName": "Groceries"
         },
         {
           "id": 3,
@@ -37,7 +39,8 @@
           "reminderDate": "",
           "url": "",
           "images": [],
-          "state": false
+          "state": false,
+          "listName": "Groceries"
         }
       ]
     },
@@ -55,7 +58,8 @@
           "reminderDate": "",
           "url": "",
           "images": [],
-          "state": false
+          "state": false,
+          "listName": "Household chores"
         },
         {
           "id": 5,
@@ -67,7 +71,8 @@
           "reminderDate": "",
           "url": "",
           "images": [],
-          "state": false
+          "state": false,
+          "listName": "Household chores"
         }
       ]
     }

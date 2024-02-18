@@ -3,10 +3,19 @@ export const FavoriteList = ({
   totalReminders,
   setIsAllRemindersDisplayed,
   setReminderListDisplayedId,
+  setIsCompletedRemindersDisplayed,
 }) => {
   const handleClickOnFavoriteAllLists = () => {
-    setIsAllRemindersDisplayed(true);
     setReminderListDisplayedId(null);
+
+    if (listTitle === "All") {
+      setIsAllRemindersDisplayed(true);
+      setIsCompletedRemindersDisplayed(false);
+    }
+    if (listTitle === "Completed") {
+      setIsAllRemindersDisplayed(false);
+      setIsCompletedRemindersDisplayed(true);
+    }
   };
   return (
     <div
