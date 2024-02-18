@@ -3,10 +3,12 @@ export const List = ({
   listTitle,
   setReminderListDisplayedId,
   setIsAllRemindersDisplayed,
+  setIsCompletedRemindersDisplayed,
 }) => {
   const handleClickOnList = () => {
     setReminderListDisplayedId(listId);
     setIsAllRemindersDisplayed(false);
+    setIsCompletedRemindersDisplayed(false);
   };
 
   return (

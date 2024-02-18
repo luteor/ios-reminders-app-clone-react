@@ -8,7 +8,9 @@ export const RemindersContainer = ({
 }) => {
   return (
     <div className="pb-6">
-      {listTitle ? <div className="pb-2 text-xl">{listTitle}</div> : null}
+      {listTitle && listReminders.length ? (
+        <div className="pb-2 text-xl">{listTitle}</div>
+      ) : null}
 
       {listReminders.map((reminder) => (
         <Reminder

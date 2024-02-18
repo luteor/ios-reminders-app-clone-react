@@ -8,10 +8,12 @@ export const Sidebar = ({
   setIsAllRemindersDisplayed,
   setIsCompletedRemindersDisplayed,
 }) => {
-  const totalAllReminders = reminderLists.reduce(
-    (total, list) => total + list.reminders.length,
-    0,
-  );
+  const totalAllReminders = reminderLists.reduce((total, list) => {
+    return (
+      total +
+      list.reminders.filter((reminder) => reminder.state === false).length
+    );
+  }, 0);
 
   const totalCompletedReminders = reminderLists.reduce((total, list) => {
     return (
@@ -27,15 +29,15 @@ export const Sidebar = ({
           listTitle={"All"}
           totalReminders={totalAllReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
-          setReminderListDisplayedId={setReminderListDisplayedId}
           setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+          setReminderListDisplayedId={setReminderListDisplayedId}
         />
         <FavoriteList
           listTitle={"Completed"}
           totalReminders={totalCompletedReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
-          setReminderListDisplayedId={setReminderListDisplayedId}
           setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+          setReminderListDisplayedId={setReminderListDisplayedId}
         />
       </div>
       <div className="flex flex-col gap-2 p-2">
@@ -46,6 +48,7 @@ export const Sidebar = ({
             listId={list.id}
             listTitle={list.name}
             setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
+            setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
             setReminderListDisplayedId={setReminderListDisplayedId}
           />
         ))}

@@ -13,10 +13,12 @@ export const Content = ({
     (list) => list.id === reminderListDisplayedId,
   );
 
-  const totalAllReminders = reminderLists.reduce(
-    (total, list) => total + list.reminders.length,
-    0,
-  );
+  const totalAllReminders = reminderLists.reduce((total, list) => {
+    return (
+      total +
+      list.reminders.filter((reminder) => reminder.state === false).length
+    );
+  }, 0);
 
   const totalCompletedReminders = reminderLists.reduce((total, list) => {
     return (
@@ -46,7 +48,11 @@ export const Content = ({
         {!isAllRemindersDisplayed && !isCompletedRemindersDisplayed && (
           <ReminderListHeader
             listTitle={reminderListDisplayed.name}
-            totalListReminders={reminderListDisplayed.reminders.length}
+            totalListReminders={
+              reminderListDisplayed.reminders.filter(
+                (reminder) => reminder.state === false,
+              ).length
+            }
           />
         )}
       </div>
@@ -56,7 +62,9 @@ export const Content = ({
             <RemindersContainer
               key={list.id}
               listTitle={list.name}
-              listReminders={list.reminders}
+              listReminders={list.reminders.filter(
+                (reminder) => reminder.state === false,
+              )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
             />
@@ -66,7 +74,7 @@ export const Content = ({
           reminderLists.map((list) => (
             <RemindersContainer
               key={list.id}
-              listTitle={null}
+              listTitle={list.name}
               listReminders={list.reminders.filter(
                 (reminder) => reminder.state === true,
               )}
@@ -79,7 +87,7 @@ export const Content = ({
           <RemindersContainer
             listTitle={null}
             listReminders={reminderListDisplayed.reminders.filter(
-              (reminder) => reminder.state === true,
+              (reminder) => reminder.state === false,
             )}
             setReminderLists={setReminderLists}
             reminderLists={reminderLists}

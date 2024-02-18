@@ -15,15 +15,15 @@ function App({ reminderData }) {
       <Sidebar
         reminderLists={reminderLists}
         setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
-        setReminderListDisplayedId={setReminderListDisplayedId}
         setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+        setReminderListDisplayedId={setReminderListDisplayedId}
       />
       <Content
         reminderLists={reminderLists}
+        setReminderLists={setReminderLists}
         isAllRemindersDisplayed={isAllRemindersDisplayed}
         isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
         reminderListDisplayedId={reminderListDisplayedId}
-        setReminderLists={setReminderLists}
       />
     </div>
   );
