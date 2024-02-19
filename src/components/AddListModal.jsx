@@ -1,4 +1,12 @@
+import EmojiPicker from "emoji-picker-react";
+import { useState } from "react";
+import { BsEmojiGrin } from "react-icons/bs";
+import { IoListSharp } from "react-icons/io5";
+
 export const AddListModal = () => {
+  const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(undefined);
+
   const listColors = [
     {
       name: "red",
@@ -74,6 +82,11 @@ export const AddListModal = () => {
     },
   ];
 
+  const handleEmojiSelect = (emojiObject) => {
+    setChosenEmoji(emojiObject.emoji);
+    setIsPickerOpen(false);
+  };
+
   return (
     <dialog
       open
@@ -81,7 +94,7 @@ export const AddListModal = () => {
     >
       <form
         method="dialog"
-        className="flex h-64 w-auto flex-col items-center justify-between gap-4 rounded-lg bg-gray-50 p-4 shadow-md"
+        className="  flex h-64 w-auto flex-col items-center justify-between gap-4 rounded-lg bg-gray-50 p-4 shadow-md"
       >
         <div className="flex flex-row  rounded bg-gray-200">
           <div className="flex w-36 items-center justify-center rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow">
@@ -127,38 +140,46 @@ export const AddListModal = () => {
             </div>
           </div>
 
-          <div className="flex flex-row flex-wrap justify-start gap-5">
+          <div className="relative flex flex-row flex-wrap justify-start gap-5">
             <label htmlFor="list-icon" className="text-sm">
               Icon:
             </label>
-            <select
-              name="list-icon"
-              id="list-icon"
-              className="h-11 w-11 appearance-none rounded-full bg-red-200 pl-3 text-sm"
-            >
-              <option value="🛒">🛒</option>
-              <option value="💼">💼</option>
-              <option value="📚">📚</option>
-              <option value="💰">💰</option>
-              <option value="🩺">🩺</option>
-              <option value="🚗">🚗</option>
-              <option value="🏠">🏠</option>
-              <option value="🏖️">🏖️</option>
-            </select>
-            <select
-              name="list-icon"
-              id="list-icon"
-              className="h-11 w-11 appearance-none rounded-full bg-red-200 pl-3 text-sm"
-            >
-              <option value="🛒">🛒</option>
-              <option value="💼">💼</option>
-              <option value="📚">📚</option>
-              <option value="💰">💰</option>
-              <option value="🩺">🩺</option>
-              <option value="🚗">🚗</option>
-              <option value="🏠">🏠</option>
-              <option value="🏖️">🏖️</option>
-            </select>
+            {chosenEmoji ? (
+              <input
+                name="list-icon"
+                id="list-icon"
+                className="relative h-11 w-11 cursor-pointer appearance-none rounded-full bg-red-200 pl-3 text-sm"
+                value={chosenEmoji}
+                onClick={() => setIsPickerOpen(true)}
+                readOnly
+              />
+            ) : (
+              <div className="relative h-11 w-11 cursor-pointer appearance-none rounded-full bg-red-200 pl-3 text-sm">
+                <BsEmojiGrin
+                  className="absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 transform text-gray-500"
+                  onClick={() => setIsPickerOpen(true)}
+                />
+              </div>
+            )}
+
+            <div className="absolute top-12 z-10 ">
+              <EmojiPicker
+                open={isPickerOpen}
+                onEmojiClick={handleEmojiSelect}
+                height={500}
+                width={400}
+                previewConfig={{
+                  showPreview: false,
+                }}
+              />
+            </div>
+
+            <div className="relative h-11 w-11 cursor-pointer appearance-none rounded-full bg-red-500 pl-3 text-sm">
+              <IoListSharp
+                className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 transform text-white"
+                onClick={() => setChosenEmoji(undefined)}
+              />
+            </div>
           </div>
         </div>
 
