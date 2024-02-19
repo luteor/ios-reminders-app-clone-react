@@ -1,91 +1,28 @@
+import { listColors } from "@assets/listColors";
 import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 import { BsEmojiGrin } from "react-icons/bs";
 import { IoListSharp } from "react-icons/io5";
 
 export const AddListModal = () => {
-  const [isPickerOpen, setIsPickerOpen] = useState(false);
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
   const [chosenEmoji, setChosenEmoji] = useState(undefined);
-
-  const listColors = [
-    {
-      name: "red",
-      properties: {
-        colorDisplay: "bg-red-500",
-      },
-    },
-    {
-      name: "orange",
-      properties: {
-        colorDisplay: "bg-orange-500",
-      },
-    },
-    {
-      name: "yellow",
-      properties: {
-        colorDisplay: "bg-yellow-500",
-      },
-    },
-    {
-      name: "green",
-      properties: {
-        colorDisplay: "bg-green-500",
-      },
-    },
-    {
-      name: "cyan",
-      properties: {
-        colorDisplay: "bg-cyan-500",
-      },
-    },
-    {
-      name: "blue",
-      properties: {
-        colorDisplay: "bg-blue-500",
-      },
-    },
-    {
-      name: "violet",
-      properties: {
-        colorDisplay: "bg-violet-500",
-      },
-    },
-    {
-      name: "rose",
-      properties: {
-        colorDisplay: "bg-rose-500",
-      },
-    },
-    {
-      name: "fuchsia",
-      properties: {
-        colorDisplay: "bg-fuchsia-500",
-      },
-    },
-    {
-      name: "stone",
-      properties: {
-        colorDisplay: "bg-stone-500",
-      },
-    },
-    {
-      name: "gray",
-      properties: {
-        colorDisplay: "bg-gray-500",
-      },
-    },
-    {
-      name: "pink",
-      properties: {
-        colorDisplay: "bg-pink-500",
-      },
-    },
-  ];
+  const [chosenColor, setChosenColor] = useState("red");
 
   const handleEmojiSelect = (emojiObject) => {
     setChosenEmoji(emojiObject.emoji);
-    setIsPickerOpen(false);
+    setIsEmojiPickerOpen(false);
   };
+
+  const getColorDisplayLight = (listColors) => {
+    const color = listColors.find((color) => color.name === chosenColor);
+    return {
+      colorDisplay: color.properties.colorDisplay,
+      colorDisplayLight: color.properties.colorDisplayLight,
+    };
+  };
+
+  const { colorDisplay, colorDisplayLight } = getColorDisplayLight(listColors);
 
   return (
     <dialog
@@ -133,6 +70,7 @@ export const AddListModal = () => {
                     value={color.name}
                     className={`peer h-4 w-4 appearance-none rounded-full ${color.properties.colorDisplay}`}
                     defaultChecked={index === 0}
+                    onChange={() => setChosenColor(color.name)}
                   />
                   <span className="absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></span>
                 </label>
@@ -148,23 +86,25 @@ export const AddListModal = () => {
               <input
                 name="list-icon"
                 id="list-icon"
-                className="relative h-11 w-11 cursor-pointer appearance-none rounded-full bg-red-200 pl-3 text-sm"
+                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${colorDisplayLight} pl-3 text-sm`}
                 value={chosenEmoji}
-                onClick={() => setIsPickerOpen(true)}
+                onClick={() => setIsEmojiPickerOpen(true)}
                 readOnly
               />
             ) : (
-              <div className="relative h-11 w-11 cursor-pointer appearance-none rounded-full bg-red-200 pl-3 text-sm">
+              <div
+                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${colorDisplayLight} pl-3 text-sm`}
+              >
                 <BsEmojiGrin
                   className="absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 transform text-gray-500"
-                  onClick={() => setIsPickerOpen(true)}
+                  onClick={() => setIsEmojiPickerOpen(true)}
                 />
               </div>
             )}
 
             <div className="absolute top-12 z-10 ">
               <EmojiPicker
-                open={isPickerOpen}
+                open={isEmojiPickerOpen}
                 onEmojiClick={handleEmojiSelect}
                 height={500}
                 width={400}
@@ -174,7 +114,9 @@ export const AddListModal = () => {
               />
             </div>
 
-            <div className="relative h-11 w-11 cursor-pointer appearance-none rounded-full bg-red-500 pl-3 text-sm">
+            <div
+              className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${colorDisplay} pl-3 text-sm`}
+            >
               <IoListSharp
                 className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 transform text-white"
                 onClick={() => setChosenEmoji(undefined)}
