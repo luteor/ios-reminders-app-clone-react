@@ -2,8 +2,8 @@ export const listColors = [
   {
     name: "red",
     properties: {
-      colorDisplay: "bg-red-500",
-      colorDisplayLight: "bg-red-200",
+      standardColorDisplay: "bg-red-500",
+      lightColorDisplay: "bg-red-200",
     },
   },
   {
