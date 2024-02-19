@@ -7,15 +7,13 @@ import { IoListSharp } from "react-icons/io5";
 
 export const AddListModal = ({ setIsAddListModalOpen }) => {
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
-  const [chosenName, setChosenName] = useState("");
-  const [chosenEmoji, setChosenEmoji] = useState(undefined);
-  const [chosenColor, setChosenColor] = useState("red");
+  const [chosenListName, setChosenListName] = useState("");
+  const [chosenListEmoji, setChosenListEmoji] = useState(undefined);
+  const [chosenListColor, setChosenListColor] = useState("red");
   const emojiPickerRef = useRef(null);
 
-  console.log(chosenName);
-
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutsideEmojiPicker = (event) => {
       if (
         isEmojiPickerOpen &&
         emojiPickerRef.current &&
@@ -25,15 +23,15 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("click", handleClickOutsideEmojiPicker);
 
     return () => {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutsideEmojiPicker);
     };
   }, [isEmojiPickerOpen]);
 
   const handleChangeName = (event) => {
-    setChosenName(event.target.value);
+    setChosenListName(event.target.value);
   };
 
   const handleEmojiPickerClick = (event) => {
@@ -42,17 +40,17 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
   };
 
   const handleEmojiSelect = (emojiObject) => {
-    setChosenEmoji(emojiObject.emoji);
+    setChosenListEmoji(emojiObject.emoji);
     setIsEmojiPickerOpen(false);
   };
 
   const handleIconClick = (event) => {
     event.stopPropagation();
-    setChosenEmoji(undefined);
+    setChosenListEmoji(undefined);
   };
 
   const getDisplayColors = (listColors) => {
-    const color = listColors.find((color) => color.name === chosenColor);
+    const color = listColors.find((color) => color.name === chosenListColor);
     return {
       standardColorDisplay: color.properties.standardColorDisplay,
       lightColorDisplay: color.properties.lightColorDisplay,
@@ -85,7 +83,7 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             id="list-name"
             name="list-name"
             className="h-5 w-96 border border-solid border-gray-300 bg-white shadow-sm"
-            value={chosenName}
+            value={chosenListName}
             onChange={handleChangeName}
           />
         </div>
@@ -107,7 +105,7 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
                     value={color.name}
                     className={`peer h-4 w-4 appearance-none rounded-full ${color.properties.standardColorDisplay}`}
                     defaultChecked={index === 0}
-                    onChange={() => setChosenColor(color.name)}
+                    onChange={() => setChosenListColor(color.name)}
                   />
                   <span className="absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></span>
                 </label>
@@ -119,12 +117,12 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             <label htmlFor="list-icon" className="text-sm">
               Icon:
             </label>
-            {chosenEmoji ? (
+            {chosenListEmoji ? (
               <input
                 name="list-icon"
                 id="list-icon"
                 className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${lightColorDisplay} pl-3 text-sm`}
-                value={chosenEmoji}
+                value={chosenListEmoji}
                 onClick={handleEmojiPickerClick}
                 readOnly
               />
@@ -184,7 +182,7 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             Cancel
           </button>
           <button
-            disabled={!chosenName}
+            disabled={!chosenListName}
             className="w-16 rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow disabled:opacity-30"
             type="submit"
           >
