@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { AddListModal } from "@components/AddListModal";
 import { Content } from "@components/Content";
 import { Sidebar } from "@components/Sidebar";
 
@@ -10,15 +9,17 @@ function App({ reminderData }) {
   const [isCompletedRemindersDisplayed, setIsCompletedRemindersDisplayed] =
     useState(false);
   const [reminderListDisplayedId, setReminderListDisplayedId] = useState(null);
+  const [isAddListModalOpen, setIsAddListModalOpen] = useState(false);
 
   return (
     <div className="flex h-lvh flex-row">
-      <AddListModal />
       <Sidebar
         reminderLists={reminderLists}
         setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
         setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
         setReminderListDisplayedId={setReminderListDisplayedId}
+        setIsAddListModalOpen={setIsAddListModalOpen}
+        isAddListModalOpen={isAddListModalOpen}
       />
       <Content
         reminderLists={reminderLists}

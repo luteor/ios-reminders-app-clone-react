@@ -1,4 +1,5 @@
 import { AddListButton } from "@components/AddListButton";
+import { AddListModal } from "@components/AddListModal";
 import { FavoriteList } from "@components/FavoriteList";
 import { List } from "@components/List";
 
@@ -7,6 +8,8 @@ export const Sidebar = ({
   setReminderListDisplayedId,
   setIsAllRemindersDisplayed,
   setIsCompletedRemindersDisplayed,
+  setIsAddListModalOpen,
+  isAddListModalOpen,
 }) => {
   const totalAllReminders = reminderLists.reduce((total, list) => {
     return (
@@ -53,7 +56,10 @@ export const Sidebar = ({
           />
         ))}
       </div>
-      <AddListButton />
+      <AddListButton setIsAddListModalOpen={setIsAddListModalOpen} />
+      {isAddListModalOpen && (
+        <AddListModal setIsAddListModalOpen={setIsAddListModalOpen} />
+      )}
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import { listColors } from "@assets/listColors";
 import EmojiPicker from "emoji-picker-react";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { BsEmojiGrin } from "react-icons/bs";
 import { IoListSharp } from "react-icons/io5";
 
-export const AddListModal = () => {
+export const AddListModal = ({ setIsAddListModalOpen }) => {
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
   const [chosenEmoji, setChosenEmoji] = useState(undefined);
   const [chosenColor, setChosenColor] = useState("red");
@@ -54,11 +55,8 @@ export const AddListModal = () => {
   const { standardColorDisplay, lightColorDisplay } =
     getDisplayColors(listColors);
 
-  return (
-    <dialog
-      open
-      className="fixed inset-0 flex size-full items-center justify-center bg-gray-400 bg-opacity-50"
-    >
+  return createPortal(
+    <dialog className="fixed inset-0 flex size-full items-center justify-center bg-gray-400 bg-opacity-50">
       <form
         method="dialog"
         className="flex h-64 w-auto flex-col items-center justify-between gap-4 rounded-lg bg-gray-50 p-4 shadow-md"
@@ -170,7 +168,10 @@ export const AddListModal = () => {
           </select>
         </div>
         <div className="flex w-full flex-row justify-end gap-3">
-          <button className="w-20 rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow">
+          <button
+            className="w-20 rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow"
+            onClick={() => setIsAddListModalOpen(false)}
+          >
             Cancel
           </button>
           <button
@@ -182,6 +183,7 @@ export const AddListModal = () => {
           </button>
         </div>
       </form>
-    </dialog>
+    </dialog>,
+    document.querySelector("#root"),
   );
 };
