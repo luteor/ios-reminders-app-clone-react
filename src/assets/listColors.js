@@ -9,78 +9,78 @@ export const listColors = [
   {
     name: "orange",
     properties: {
-      colorDisplay: "bg-orange-500",
-      colorDisplayLight: "bg-orange-200",
+      standardColorDisplay: "bg-orange-500",
+      lightColorDisplay: "bg-orange-200",
     },
   },
   {
     name: "yellow",
     properties: {
-      colorDisplay: "bg-yellow-500",
-      colorDisplayLight: "bg-yellow-200",
+      standardColorDisplay: "bg-yellow-500",
+      lightColorDisplay: "bg-yellow-200",
     },
   },
   {
     name: "green",
     properties: {
-      colorDisplay: "bg-green-500",
-      colorDisplayLight: "bg-green-200",
+      standardColorDisplay: "bg-green-500",
+      lightColorDisplay: "bg-green-200",
     },
   },
   {
     name: "cyan",
     properties: {
-      colorDisplay: "bg-cyan-500",
-      colorDisplayLight: "bg-cyan-200",
+      standardColorDisplay: "bg-cyan-500",
+      lightColorDisplay: "bg-cyan-200",
     },
   },
   {
     name: "blue",
     properties: {
-      colorDisplay: "bg-blue-500",
-      colorDisplayLight: "bg-blue-200",
+      standardColorDisplay: "bg-blue-500",
+      lightColorDisplay: "bg-blue-200",
     },
   },
   {
     name: "violet",
     properties: {
-      colorDisplay: "bg-violet-500",
-      colorDisplayLight: "bg-violet-200",
+      standardColorDisplay: "bg-violet-500",
+      lightColorDisplay: "bg-violet-200",
     },
   },
   {
     name: "rose",
     properties: {
-      colorDisplay: "bg-rose-500",
-      colorDisplayLight: "bg-rose-200",
+      standardColorDisplay: "bg-rose-500",
+      lightColorDisplay: "bg-rose-200",
     },
   },
   {
     name: "fuchsia",
     properties: {
-      colorDisplay: "bg-fuchsia-500",
-      colorDisplayLight: "bg-fuchsia-200",
+      standardColorDisplay: "bg-fuchsia-500",
+      lightColorDisplay: "bg-fuchsia-200",
     },
   },
   {
     name: "stone",
     properties: {
-      colorDisplay: "bg-stone-500",
-      colorDisplayLight: "bg-stone-200",
+      standardColorDisplay: "bg-stone-500",
+      lightColorDisplay: "bg-stone-200",
     },
   },
   {
     name: "gray",
     properties: {
-      colorDisplay: "bg-gray-500",
-      colorDisplayLight: "bg-gray-200",
+      standardColorDisplay: "bg-gray-500",
+      lightColorDisplay: "bg-gray-200",
     },
   },
   {
     name: "pink",
     properties: {
-      colorDisplay: "bg-pink-500",
-      colorDisplayLight: "bg-pink-200",
+      standardColorDisplay: "bg-pink-500",
+      lightColorDisplay: "bg-pink-200",
     },
   },
 ];

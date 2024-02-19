@@ -12,7 +12,6 @@ export const AddListModal = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log("toto");
       if (
         isEmojiPickerOpen &&
         emojiPickerRef.current &&
@@ -99,7 +98,7 @@ export const AddListModal = () => {
                     id={color.name}
                     name="list-color"
                     value={color.name}
-                    className={`peer h-4 w-4 appearance-none rounded-full ${color.properties.colorDisplay}`}
+                    className={`peer h-4 w-4 appearance-none rounded-full ${color.properties.standardColorDisplay}`}
                     defaultChecked={index === 0}
                     onChange={() => setChosenColor(color.name)}
                   />
