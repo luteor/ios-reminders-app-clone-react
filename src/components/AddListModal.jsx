@@ -7,9 +7,12 @@ import { IoListSharp } from "react-icons/io5";
 
 export const AddListModal = ({ setIsAddListModalOpen }) => {
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
+  const [chosenName, setChosenName] = useState("");
   const [chosenEmoji, setChosenEmoji] = useState(undefined);
   const [chosenColor, setChosenColor] = useState("red");
   const emojiPickerRef = useRef(null);
+
+  console.log(chosenName);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,6 +31,10 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [isEmojiPickerOpen]);
+
+  const handleChangeName = (event) => {
+    setChosenName(event.target.value);
+  };
 
   const handleEmojiPickerClick = (event) => {
     event.stopPropagation();
@@ -78,6 +85,8 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             id="list-name"
             name="list-name"
             className="h-5 w-96 border border-solid border-gray-300 bg-white shadow-sm"
+            value={chosenName}
+            onChange={handleChangeName}
           />
         </div>
 
@@ -175,7 +184,7 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             Cancel
           </button>
           <button
-            disabled
+            disabled={!chosenName}
             className="w-16 rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow disabled:opacity-30"
             type="submit"
           >
