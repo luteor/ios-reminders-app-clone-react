@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Groceries",
       "color": "green",
-      "icon": "",
+      "icon": "😄",
       "type": "standard",
       "reminders": [
         {

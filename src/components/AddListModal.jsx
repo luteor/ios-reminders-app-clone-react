@@ -75,7 +75,7 @@ export const AddListModal = ({
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    const listIcon = formData.get("list-icon");
+    const listIcon = formData.get("icon");
     if (!listIcon) {
       formData.set("icon", "");
     }
@@ -99,6 +99,7 @@ export const AddListModal = ({
       },
     ];
 
+    console.log(updatedReminderLists);
     setReminderLists(updatedReminderLists);
     setIsAddListModalOpen(false);
   };
