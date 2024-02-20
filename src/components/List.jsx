@@ -25,18 +25,17 @@ export const List = ({
     >
       {listIcon ? (
         <div
-          className={`h-8 w-8 cursor-pointer appearance-none rounded-full ${lightColorDisplay} flex items-center justify-center`}
+          className={`h-7 w-7 cursor-pointer appearance-none rounded-full ${lightColorDisplay} flex items-center justify-center`}
         >
           <span>{listIcon}</span>
         </div>
       ) : (
         <div
-          className={`h-8 w-8 cursor-pointer appearance-none rounded-full ${standardColorDisplay} flex items-center justify-center`}
+          className={`h-7 w-7 cursor-pointer appearance-none rounded-full ${standardColorDisplay} flex items-center justify-center`}
         >
-          <IoListSharp className=" h-5 w-5 text-white" />
+          <IoListSharp className=" h-4 w-4 text-white" />
         </div>
       )}
-
       <div>{listTitle}</div>
     </div>
   );
