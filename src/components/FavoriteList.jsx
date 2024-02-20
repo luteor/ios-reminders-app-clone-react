@@ -1,3 +1,5 @@
+import { IoCheckmarkOutline, IoFileTraySharp } from "react-icons/io5";
+
 export const FavoriteList = ({
   listTitle,
   totalReminders,
@@ -23,8 +25,23 @@ export const FavoriteList = ({
       onClick={handleClickOnFavoriteAllLists}
     >
       <div className="flex flex-row justify-between">
-        <div className="h-6 w-6 rounded-full bg-slate-600"></div>
-        <span className="text-xl">{totalReminders}</span>
+        {listTitle === "All" && (
+          <div
+            className={`flex h-6 w-6 appearance-none  items-center justify-center rounded-full bg-gray-900`}
+          >
+            <IoFileTraySharp className=" h-4 w-4 text-white" />
+          </div>
+        )}
+        {listTitle === "Completed" && (
+          <div
+            className={`flex h-6 w-6 appearance-none  items-center justify-center rounded-full bg-gray-500`}
+          >
+            <IoCheckmarkOutline className=" h-5 w-5 text-white" />
+          </div>
+        )}
+        {listTitle === "All" && (
+          <span className="text-xl font-bold">{totalReminders}</span>
+        )}
       </div>
       <span className="text-sm">{listTitle}</span>
     </div>
