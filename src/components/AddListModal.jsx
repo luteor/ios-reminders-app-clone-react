@@ -60,16 +60,8 @@ export const AddListModal = ({
     setChosenListEmoji(undefined);
   };
 
-  const getDisplayColors = (listColors) => {
-    const color = listColors.find((color) => color.name === chosenListColor);
-    return {
-      standardColorDisplay: color.properties.standardColorDisplay,
-      lightColorDisplay: color.properties.lightColorDisplay,
-    };
-  };
-
-  const { standardColorDisplay, lightColorDisplay } =
-    getDisplayColors(listColors);
+  const standardColorDisplay = `bg-${chosenListColor}-500`;
+  const lightColorDisplay = `bg-${chosenListColor}-200`;
 
   const handleSubmitAddListForm = (event) => {
     event.preventDefault();
@@ -149,7 +141,7 @@ export const AddListModal = ({
                     id={`list-${color.name}`}
                     name="color"
                     value={color.name}
-                    className={`peer h-4 w-4 appearance-none rounded-full ${color.properties.standardColorDisplay}`}
+                    className={`peer h-4 w-4 appearance-none rounded-full ${color.colorDisplay}`}
                     defaultChecked={index === 0}
                     onChange={() => setChosenListColor(color.name)}
                   />
