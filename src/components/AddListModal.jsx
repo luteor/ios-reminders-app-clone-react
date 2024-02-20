@@ -15,6 +15,13 @@ export const AddListModal = ({
   const [chosenListEmoji, setChosenListEmoji] = useState(undefined);
   const [chosenListColor, setChosenListColor] = useState("red");
   const emojiPickerRef = useRef(null);
+  const firstInputRef = useRef(null);
+
+  useEffect(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutsideEmojiPicker = (event) => {
@@ -114,10 +121,11 @@ export const AddListModal = ({
             Name:{" "}
           </label>
           <input
+            ref={firstInputRef}
             type="text"
             id="list-name"
             name="name"
-            className="h-5 w-96 border border-solid border-gray-300 bg-white shadow-sm"
+            className="h-5 w-96 border border-solid border-gray-300 bg-white p-1 shadow-sm"
             value={chosenListName}
             onChange={handleChangeName}
           />
