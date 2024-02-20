@@ -8,6 +8,7 @@ export const Sidebar = ({
   setReminderLists,
   setReminderListDisplayedId,
   setIsAllRemindersDisplayed,
+  setIsWithFlagRemindersDisplayed,
   setIsCompletedRemindersDisplayed,
   setIsAddListModalOpen,
   isAddListModalOpen,
@@ -26,6 +27,12 @@ export const Sidebar = ({
     );
   }, 0);
 
+  const totalFlagsReminders = reminderLists.reduce((total, list) => {
+    return (
+      total + list.reminders.filter((reminder) => reminder.flag === true).length
+    );
+  }, 0);
+
   return (
     <div className="flex w-72 flex-col items-start justify-between bg-stone-100 p-2">
       <div className="flex flex-row flex-wrap justify-between gap-2">
@@ -33,6 +40,15 @@ export const Sidebar = ({
           listTitle={"All"}
           totalReminders={totalAllReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
+          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
+          setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+          setReminderListDisplayedId={setReminderListDisplayedId}
+        />
+        <FavoriteList
+          listTitle={"With flag"}
+          totalReminders={totalFlagsReminders}
+          setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
+          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
           setReminderListDisplayedId={setReminderListDisplayedId}
         />
@@ -40,6 +56,7 @@ export const Sidebar = ({
           listTitle={"Completed"}
           totalReminders={totalCompletedReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
+          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
           setReminderListDisplayedId={setReminderListDisplayedId}
         />
@@ -54,6 +71,7 @@ export const Sidebar = ({
             listColor={list.color}
             listIcon={list.icon}
             setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
+            setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
             setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
             setReminderListDisplayedId={setReminderListDisplayedId}
           />

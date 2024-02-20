@@ -10,6 +10,7 @@
         {
           "id": 1,
           "content": "Buy milk",
+          "flag": true,
           "notes": "Prefer semi-skimmed milk.",
           "tags": ["Essential"],
           "reminderDate": "2024-02-15T08:00:00",
@@ -22,6 +23,7 @@
         {
           "id": 2,
           "content": "Buy eggs",
+          "flag": false,
           "description": "Need eggs for the cake recipe.",
           "tags": [],
           "reminderDate": "2024-02-16T10:00:00",
@@ -35,6 +37,7 @@
         {
           "id": 3,
           "content": "Buy vegetables",
+          "flag": false,
           "description": "Buy vegetables for the week.",
           "notes": "Prefer organic vegetables.",
           "tags": ["Health"],
@@ -57,6 +60,7 @@
         {
           "id": 4,
           "content": "Do laundry",
+          "flag": true,
           "description": "Don't forget to do laundry tonight.",
           "priority": "low",
           "notes": "",
@@ -70,6 +74,7 @@
         {
           "id": 5,
           "content": "Clean the kitchen",
+          "flag": false,
           "description": "Clean the kitchen countertops and table.",
           "priority": "medium",
           "notes": "",

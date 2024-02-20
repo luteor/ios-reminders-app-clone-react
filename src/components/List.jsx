@@ -9,11 +9,13 @@ export const List = ({
   listIcon,
   setReminderListDisplayedId,
   setIsAllRemindersDisplayed,
+  setIsWithFlagRemindersDisplayed,
   setIsCompletedRemindersDisplayed,
 }) => {
   const handleClickOnList = () => {
     setReminderListDisplayedId(listId);
     setIsAllRemindersDisplayed(false);
+    setIsWithFlagRemindersDisplayed(false);
     setIsCompletedRemindersDisplayed(false);
   };
 

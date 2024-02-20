@@ -6,6 +6,8 @@ import { Sidebar } from "@components/Sidebar";
 function App({ reminderData }) {
   const [reminderLists, setReminderLists] = useState(reminderData);
   const [isAllRemindersDisplayed, setIsAllRemindersDisplayed] = useState(true);
+  const [isWithFlagRemindersDisplayed, setIsWithFlagRemindersDisplayed] =
+    useState(false);
   const [isCompletedRemindersDisplayed, setIsCompletedRemindersDisplayed] =
     useState(false);
   const [reminderListDisplayedId, setReminderListDisplayedId] = useState(null);
@@ -18,6 +20,7 @@ function App({ reminderData }) {
         setReminderLists={setReminderLists}
         setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
         setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+        setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
         setReminderListDisplayedId={setReminderListDisplayedId}
         setIsAddListModalOpen={setIsAddListModalOpen}
         isAddListModalOpen={isAddListModalOpen}
@@ -26,6 +29,7 @@ function App({ reminderData }) {
         reminderLists={reminderLists}
         setReminderLists={setReminderLists}
         isAllRemindersDisplayed={isAllRemindersDisplayed}
+        isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
         isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
         reminderListDisplayedId={reminderListDisplayedId}
       />
