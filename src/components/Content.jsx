@@ -34,6 +34,7 @@ export const Content = ({
         {isAllRemindersDisplayed && (
           <ReminderListHeader
             listTitle={"All"}
+            listColor={"black"}
             totalListReminders={totalAllReminders}
           />
         )}
@@ -41,6 +42,7 @@ export const Content = ({
         {isCompletedRemindersDisplayed && (
           <ReminderListHeader
             listTitle={"Completed"}
+            listColor={"gray"}
             totalListReminders={totalCompletedReminders}
           />
         )}
@@ -48,6 +50,7 @@ export const Content = ({
         {!isAllRemindersDisplayed && !isCompletedRemindersDisplayed && (
           <ReminderListHeader
             listTitle={reminderListDisplayed.name}
+            listColor={reminderListDisplayed.color}
             totalListReminders={
               reminderListDisplayed.reminders.filter(
                 (reminder) => reminder.state === false,
