@@ -5,6 +5,8 @@ import { createPortal } from "react-dom";
 import { BsEmojiGrin } from "react-icons/bs";
 import { IoListSharp } from "react-icons/io5";
 
+import { getDisplayColors } from "@utils/getDisplayColors";
+
 export const AddListModal = ({
   setIsAddListModalOpen,
   reminderLists,
@@ -60,15 +62,7 @@ export const AddListModal = ({
     setChosenListEmoji(undefined);
   };
 
-  const getDisplayColors = (listColors) => {
-    const color = listColors.find((color) => color.name === chosenListColor);
-    return {
-      colorDisplay200: color.colorDisplay200,
-      colorDisplay500: color.colorDisplay500,
-    };
-  };
-
-  const { colorDisplay200, colorDisplay500 } = getDisplayColors(listColors);
+  const { bgColorLight, bgColorStandard } = getDisplayColors(chosenListColor);
 
   const handleSubmitAddListForm = (event) => {
     event.preventDefault();
@@ -147,7 +141,7 @@ export const AddListModal = ({
                     id={`list-${color.name}`}
                     name="color"
                     value={color.name}
-                    className={`peer h-4 w-4 appearance-none rounded-full ${color.colorDisplay500}`}
+                    className={`peer h-4 w-4 appearance-none rounded-full ${color.bgColors.standard}`}
                     defaultChecked={index === 0}
                     onChange={() => setChosenListColor(color.name)}
                   />
@@ -165,14 +159,14 @@ export const AddListModal = ({
               <input
                 id="list-icon"
                 name="icon"
-                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${colorDisplay200} pl-3 text-sm`}
+                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorLight} pl-3 text-sm`}
                 value={chosenListEmoji}
                 onClick={handleEmojiPickerClick}
                 readOnly
               />
             ) : (
               <div
-                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${colorDisplay200} pl-3 text-sm`}
+                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorLight} pl-3 text-sm`}
               >
                 <BsEmojiGrin
                   className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform text-gray-500"
@@ -194,7 +188,7 @@ export const AddListModal = ({
             </div>
 
             <div
-              className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${colorDisplay500} pl-3 text-sm`}
+              className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorStandard} pl-3 text-sm`}
             >
               <IoListSharp
                 className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform text-white"

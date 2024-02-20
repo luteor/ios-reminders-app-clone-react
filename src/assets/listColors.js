@@ -1,62 +1,134 @@
 export const listColors = [
   {
     name: "red",
-    colorDisplay200: "bg-red-200",
-    colorDisplay500: "bg-red-500",
+    bgColors: {
+      light: "bg-red-200",
+      standard: "bg-red-500",
+    },
+    textColors: {
+      light: "text-red-200",
+      standard: "text-red-500",
+    },
   },
   {
     name: "orange",
-    colorDisplay200: "bg-orange-200",
-    colorDisplay500: "bg-orange-500",
+    bgColors: {
+      light: "bg-orange-200",
+      standard: "bg-orange-500",
+    },
+    textColors: {
+      light: "text-orange-200",
+      standard: "text-orange-500",
+    },
   },
   {
     name: "yellow",
-    colorDisplay200: "bg-yellow-200",
-    colorDisplay500: "bg-yellow-500",
+    bgColors: {
+      light: "bg-yellow-200",
+      standard: "bg-yellow-500",
+    },
+    textColors: {
+      light: "text-yellow-200",
+      standard: "text-yellow-500",
+    },
   },
   {
     name: "green",
-    colorDisplay200: "bg-green-200",
-    colorDisplay500: "bg-green-500",
+    bgColors: {
+      light: "bg-green-200",
+      standard: "bg-green-500",
+    },
+    textColors: {
+      light: "text-green-200",
+      standard: "text-green-500",
+    },
   },
   {
     name: "cyan",
-    colorDisplay200: "bg-cyan-200",
-    colorDisplay500: "bg-cyan-500",
+    bgColors: {
+      light: "bg-cyan-200",
+      standard: "bg-cyan-500",
+    },
+    textColors: {
+      light: "text-cyan-200",
+      standard: "text-cyan-500",
+    },
   },
   {
     name: "blue",
-    colorDisplay200: "bg-blue-200",
-    colorDisplay500: "bg-blue-500",
+    bgColors: {
+      light: "bg-blue-200",
+      standard: "bg-blue-500",
+    },
+    textColors: {
+      light: "text-blue-200",
+      standard: "text-blue-500",
+    },
   },
   {
     name: "violet",
-    colorDisplay200: "bg-violet-200",
-    colorDisplay500: "bg-violet-500",
+    bgColors: {
+      light: "bg-violet-200",
+      standard: "bg-violet-500",
+    },
+    textColors: {
+      light: "text-violet-200",
+      standard: "text-violet-500",
+    },
   },
   {
     name: "rose",
-    colorDisplay200: "bg-rose-200",
-    colorDisplay500: "bg-rose-500",
+    bgColors: {
+      light: "bg-rose-200",
+      standard: "bg-rose-500",
+    },
+    textColors: {
+      light: "text-rose-200",
+      standard: "text-rose-500",
+    },
   },
   {
     name: "fuchsia",
-    colorDisplay200: "bg-fuchsia-200",
-    colorDisplay500: "bg-fuchsia-500",
+    bgColors: {
+      light: "bg-fuchsia-200",
+      standard: "bg-fuchsia-500",
+    },
+    textColors: {
+      light: "text-fuchsia-200",
+      standard: "text-fuchsia-500",
+    },
   },
   {
     name: "stone",
-    colorDisplay200: "bg-stone-200",
-    colorDisplay500: "bg-stone-500",
+    bgColors: {
+      light: "bg-stone-200",
+      standard: "bg-stone-500",
+    },
+    textColors: {
+      light: "text-stone-200",
+      standard: "text-stone-500",
+    },
   },
   {
     name: "gray",
-    colorDisplay200: "bg-gray-200",
-    colorDisplay500: "bg-gray-500",
+    bgColors: {
+      light: "bg-gray-200",
+      standard: "bg-gray-500",
+    },
+    textColors: {
+      light: "text-gray-200",
+      standard: "text-gray-500",
+    },
   },
   {
     name: "pink",
-    colorDisplay200: "bg-pink-200",
-    colorDisplay500: "bg-pink-500",
+    bgColors: {
+      light: "bg-pink-200",
+      standard: "bg-pink-500",
+    },
+    textColors: {
+      light: "text-pink-200",
+      standard: "text-pink-500",
+    },
   },
 ];

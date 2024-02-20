@@ -1,5 +1,6 @@
-import { listColors } from "@assets/listColors";
 import { IoListSharp } from "react-icons/io5";
+
+import { getDisplayColors } from "@utils/getDisplayColors";
 
 export const List = ({
   listId,
@@ -16,15 +17,7 @@ export const List = ({
     setIsCompletedRemindersDisplayed(false);
   };
 
-  const getDisplayColors = (listColors) => {
-    const color = listColors.find((color) => color.name === listColor);
-    return {
-      colorDisplay200: color.colorDisplay200,
-      colorDisplay500: color.colorDisplay500,
-    };
-  };
-
-  const { colorDisplay200, colorDisplay500 } = getDisplayColors(listColors);
+  const { bgColorLight, bgColorStandard } = getDisplayColors(listColor);
 
   return (
     <div
@@ -33,13 +26,13 @@ export const List = ({
     >
       {listIcon ? (
         <div
-          className={`h-7 w-7 cursor-pointer appearance-none rounded-full ${colorDisplay200} flex items-center justify-center`}
+          className={`h-7 w-7 cursor-pointer appearance-none rounded-full ${bgColorLight} flex items-center justify-center`}
         >
           <span>{listIcon}</span>
         </div>
       ) : (
         <div
-          className={`h-7 w-7 cursor-pointer appearance-none rounded-full ${colorDisplay500} flex items-center justify-center`}
+          className={`h-7 w-7 cursor-pointer appearance-none rounded-full ${bgColorStandard} flex items-center justify-center`}
         >
           <IoListSharp className=" h-4 w-4 text-white" />
         </div>
