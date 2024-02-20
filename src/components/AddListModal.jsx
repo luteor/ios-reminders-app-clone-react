@@ -5,7 +5,11 @@ import { createPortal } from "react-dom";
 import { BsEmojiGrin } from "react-icons/bs";
 import { IoListSharp } from "react-icons/io5";
 
-export const AddListModal = ({ setIsAddListModalOpen }) => {
+export const AddListModal = ({
+  setIsAddListModalOpen,
+  reminderLists,
+  setReminderLists,
+}) => {
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
   const [chosenListName, setChosenListName] = useState("");
   const [chosenListEmoji, setChosenListEmoji] = useState(undefined);
@@ -60,10 +64,41 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
   const { standardColorDisplay, lightColorDisplay } =
     getDisplayColors(listColors);
 
+  const handleSubmitAddListForm = (event) => {
+    const formData = new FormData(event.target);
+
+    const listIcon = formData.get("list-icon");
+    if (!listIcon) {
+      formData.set("icon", "");
+    }
+
+    const newListData = Object.fromEntries(formData);
+
+    const lastListId = reminderLists.reduce(
+      (max, list) => (list.id > max ? list.id : max),
+      0,
+    );
+
+    const updatedReminderLists = [
+      ...reminderLists,
+      {
+        id: lastListId + 1,
+        name: newListData.name,
+        color: newListData.color,
+        icon: newListData.icon,
+        type: newListData.type,
+        reminders: [],
+      },
+    ];
+
+    setReminderLists(updatedReminderLists);
+  };
+
   return createPortal(
     <dialog className="fixed inset-0 flex size-full items-center justify-center bg-gray-400 bg-opacity-50">
       <form
         method="dialog"
+        onSubmit={handleSubmitAddListForm}
         className="flex h-64 w-auto flex-col items-center justify-between gap-4 rounded-lg bg-gray-50 p-4 shadow-md"
       >
         <div className="flex flex-row  rounded bg-gray-200">
@@ -81,7 +116,7 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
           <input
             type="text"
             id="list-name"
-            name="list-name"
+            name="name"
             className="h-5 w-96 border border-solid border-gray-300 bg-white shadow-sm"
             value={chosenListName}
             onChange={handleChangeName}
@@ -94,14 +129,14 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             <div className="flex flex-row flex-wrap justify-start gap-2">
               {listColors.map((color, index) => (
                 <label
-                  key={color.name}
+                  key={`list-${color.name}`}
                   htmlFor={color.name}
                   className="relative inline-flex items-center"
                 >
                   <input
                     type="radio"
-                    id={color.name}
-                    name="list-color"
+                    id={`list-${color.name}`}
+                    name="color"
                     value={color.name}
                     className={`peer h-4 w-4 appearance-none rounded-full ${color.properties.standardColorDisplay}`}
                     defaultChecked={index === 0}
@@ -119,8 +154,8 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             </label>
             {chosenListEmoji ? (
               <input
-                name="list-icon"
                 id="list-icon"
+                name="icon"
                 className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${lightColorDisplay} pl-3 text-sm`}
                 value={chosenListEmoji}
                 onClick={handleEmojiPickerClick}
@@ -165,8 +200,8 @@ export const AddListModal = ({ setIsAddListModalOpen }) => {
             Type of list:
           </label>
           <select
-            name="list-type"
             id="list-type"
+            name="type"
             className="rounded border border-solid border-gray-300 bg-white pr-10 text-sm shadow-sm"
           >
             <option value="standard">Standard</option>

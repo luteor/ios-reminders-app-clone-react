@@ -5,6 +5,7 @@ import { List } from "@components/List";
 
 export const Sidebar = ({
   reminderLists,
+  setReminderLists,
   setReminderListDisplayedId,
   setIsAllRemindersDisplayed,
   setIsCompletedRemindersDisplayed,
@@ -58,7 +59,11 @@ export const Sidebar = ({
       </div>
       <AddListButton setIsAddListModalOpen={setIsAddListModalOpen} />
       {isAddListModalOpen && (
-        <AddListModal setIsAddListModalOpen={setIsAddListModalOpen} />
+        <AddListModal
+          setIsAddListModalOpen={setIsAddListModalOpen}
+          reminderLists={reminderLists}
+          setReminderLists={setReminderLists}
+        />
       )}
     </div>
   );

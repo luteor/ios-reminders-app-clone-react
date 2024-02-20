@@ -3,6 +3,9 @@
     {
       "id": 1,
       "name": "Groceries",
+      "color": "green",
+      "icon": "",
+      "type": "standard",
       "reminders": [
         {
           "id": 1,
@@ -47,6 +50,9 @@
     {
       "id": 2,
       "name": "Household chores",
+      "color": "blue",
+      "icon": "",
+      "type": "standard",
       "reminders": [
         {
           "id": 4,

@@ -15,6 +15,7 @@ function App({ reminderData }) {
     <div className="flex h-lvh flex-row">
       <Sidebar
         reminderLists={reminderLists}
+        setReminderLists={setReminderLists}
         setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
         setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
         setReminderListDisplayedId={setReminderListDisplayedId}
