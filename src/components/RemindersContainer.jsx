@@ -1,15 +1,21 @@
+import { getDisplayColors } from "@utils/getDisplayColors";
+
 import { Reminder } from "@components/Reminder";
 
 export const RemindersContainer = ({
   listTitle,
+  listColor,
   listReminders,
   setReminderLists,
   reminderLists,
 }) => {
+  const { textColorStandard } = getDisplayColors(listColor);
   return (
     <div className="pb-6">
       {listTitle && listReminders.length ? (
-        <div className="pb-2 text-xl">{listTitle}</div>
+        <div className={`pb-2 text-xl font-bold ${textColorStandard}`}>
+          {listTitle}
+        </div>
       ) : null}
 
       {listReminders.map((reminder) => (

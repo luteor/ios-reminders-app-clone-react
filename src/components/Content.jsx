@@ -65,6 +65,7 @@ export const Content = ({
             <RemindersContainer
               key={list.id}
               listTitle={list.name}
+              listColor={list.color}
               listReminders={list.reminders.filter(
                 (reminder) => reminder.state === false,
               )}
@@ -78,6 +79,7 @@ export const Content = ({
             <RemindersContainer
               key={list.id}
               listTitle={list.name}
+              listColor={list.color}
               listReminders={list.reminders.filter(
                 (reminder) => reminder.state === true,
               )}
@@ -89,6 +91,7 @@ export const Content = ({
         {!isAllRemindersDisplayed && !isCompletedRemindersDisplayed && (
           <RemindersContainer
             listTitle={null}
+            listColor={reminderListDisplayed.color}
             listReminders={reminderListDisplayed.reminders.filter(
               (reminder) => reminder.state === false,
             )}
