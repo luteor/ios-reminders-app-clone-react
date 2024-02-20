@@ -72,6 +72,7 @@ export const AddListModal = ({
     getDisplayColors(listColors);
 
   const handleSubmitAddListForm = (event) => {
+    event.preventDefault();
     const formData = new FormData(event.target);
 
     const listIcon = formData.get("list-icon");
@@ -99,6 +100,7 @@ export const AddListModal = ({
     ];
 
     setReminderLists(updatedReminderLists);
+    setIsAddListModalOpen(false);
   };
 
   return createPortal(
@@ -221,6 +223,7 @@ export const AddListModal = ({
           <button
             className="w-20 rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow"
             onClick={() => setIsAddListModalOpen(false)}
+            type="button"
           >
             Cancel
           </button>
