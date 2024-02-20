@@ -98,7 +98,8 @@ export const Content = ({
               listTitle={null}
               listColor={list.color}
               listReminders={list.reminders.filter(
-                (reminder) => reminder.flag === true,
+                (reminder) =>
+                  reminder.flag === true && reminder.state === false,
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
