@@ -11,7 +11,7 @@ export const RemindersContainer = ({
 }) => {
   const { textColorStandard } = getDisplayColors(listColor);
   return (
-    <div className="pb-6">
+    <div className={listTitle ? "pb-6" : ""}>
       {listTitle && listReminders.length ? (
         <div className={`pb-2 text-xl font-bold ${textColorStandard}`}>
           {listTitle}
@@ -22,6 +22,7 @@ export const RemindersContainer = ({
         <Reminder
           key={reminder.id}
           reminder={reminder}
+          listColor={listColor}
           setReminderLists={setReminderLists}
           reminderLists={reminderLists}
         />

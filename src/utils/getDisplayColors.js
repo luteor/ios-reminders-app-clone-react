@@ -10,5 +10,7 @@ export const getDisplayColors = (listColor) => {
     bgColorStandard: color.bgColors.standard,
     textColorLight: color.textColors.light,
     textColorStandard: color.textColors.standard,
+    checkedBgColor: color.checked.bgChecked,
+    checkedOutlineColor: color.checked.outlineChecked,
   };
 };

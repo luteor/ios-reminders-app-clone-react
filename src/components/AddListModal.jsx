@@ -134,7 +134,7 @@ export const AddListModal = ({
                 <label
                   key={`list-${color.name}`}
                   htmlFor={color.name}
-                  className="relative inline-flex items-center"
+                  className="relative flex items-center"
                 >
                   <input
                     type="radio"
@@ -166,10 +166,10 @@ export const AddListModal = ({
               />
             ) : (
               <div
-                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorLight} pl-3 text-sm`}
+                className={`flex h-11 w-11 cursor-pointer appearance-none items-center justify-center rounded-full ${bgColorLight} text-sm`}
               >
                 <BsEmojiGrin
-                  className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform text-gray-500"
+                  className=" h-6 w-6  text-gray-500"
                   onClick={handleEmojiPickerClick}
                 />
               </div>
@@ -188,10 +188,10 @@ export const AddListModal = ({
             </div>
 
             <div
-              className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorStandard} pl-3 text-sm`}
+              className={`flex h-11 w-11 cursor-pointer appearance-none items-center justify-center rounded-full ${bgColorStandard} text-sm`}
             >
               <IoListSharp
-                className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform text-white"
+                className="h-6 w-6 text-white"
                 onClick={handleIconClick}
               />
             </div>
