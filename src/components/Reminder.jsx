@@ -5,6 +5,7 @@ export const Reminder = ({
   listColor,
   setReminderLists,
   reminderLists,
+  isCompletedRemindersDisplayed,
 }) => {
   const handleCheckReminder = () => {
     setTimeout(() => {
@@ -23,7 +24,7 @@ export const Reminder = ({
         };
       });
       setReminderLists(updatedReminderLists);
-    }, 500);
+    }, 1000);
   };
 
   const { checkedBgColor, checkedOutlineColor } = getDisplayColors(listColor);
@@ -34,7 +35,11 @@ export const Reminder = ({
         type="checkbox"
         name="reminder"
         id="reminder"
-        className={`${checkedBgColor} peer flex h-4  w-4 appearance-none items-center justify-center rounded-full border border-solid border-gray-400 checked:outline checked:outline-1 checked:outline-offset-1 ${checkedOutlineColor}`}
+        className={`peer flex h-4 w-4 appearance-none items-center justify-center rounded-full  ${
+          isCompletedRemindersDisplayed
+            ? "border-none bg-gray-500 outline outline-1 outline-offset-1 outline-gray-500 checked:border checked:border-solid checked:border-gray-400 checked:bg-white checked:outline-none"
+            : `bg-white ${checkedBgColor} ${checkedOutlineColor} border border-solid border-gray-400 checked:border-none checked:outline checked:outline-1 checked:outline-offset-1`
+        }`}
         onChange={handleCheckReminder}
       />
 

@@ -88,6 +88,7 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
             />
           ))}
 
@@ -103,6 +104,7 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
             />
           ))}
 
@@ -117,6 +119,7 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
             />
           ))}
 
@@ -131,6 +134,7 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
             />
           )}
       </div>
