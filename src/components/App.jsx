@@ -12,6 +12,7 @@ function App({ reminderData }) {
     useState(false);
   const [reminderListDisplayedId, setReminderListDisplayedId] = useState(null);
   const [isAddListModalOpen, setIsAddListModalOpen] = useState(false);
+  const [isAddReminderFormOpen, setIsAddReminderFormOpen] = useState(false);
 
   return (
     <div className="flex h-lvh flex-row">
@@ -32,6 +33,8 @@ function App({ reminderData }) {
         isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
         isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
         reminderListDisplayedId={reminderListDisplayedId}
+        isAddReminderFormOpen={isAddReminderFormOpen}
+        setIsAddReminderFormOpen={setIsAddReminderFormOpen}
       />
     </div>
   );

@@ -8,7 +8,9 @@ export const RemindersContainer = ({
   listReminders,
   setReminderLists,
   reminderLists,
+  isAllRemindersDisplayed,
   isCompletedRemindersDisplayed,
+  isWithFlagRemindersDisplayed,
 }) => {
   const { textColorStandard } = getDisplayColors(listColor);
   return (
@@ -19,16 +21,55 @@ export const RemindersContainer = ({
         </div>
       ) : null}
 
-      {listReminders.map((reminder) => (
-        <Reminder
-          key={reminder.id}
-          reminder={reminder}
-          listColor={listColor}
-          setReminderLists={setReminderLists}
-          reminderLists={reminderLists}
-          isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
-        />
-      ))}
+      {isAllRemindersDisplayed &&
+        listReminders.map((reminder) => (
+          <Reminder
+            key={reminder.id}
+            reminder={reminder}
+            listColor={listColor}
+            setReminderLists={setReminderLists}
+            reminderLists={reminderLists}
+            isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+          />
+        ))}
+
+      {isCompletedRemindersDisplayed &&
+        listReminders.map((reminder) => (
+          <Reminder
+            key={reminder.id}
+            reminder={reminder}
+            listColor={"gray"}
+            setReminderLists={setReminderLists}
+            reminderLists={reminderLists}
+            isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+          />
+        ))}
+
+      {isWithFlagRemindersDisplayed &&
+        listReminders.map((reminder) => (
+          <Reminder
+            key={reminder.id}
+            reminder={reminder}
+            listColor={"orange"}
+            setReminderLists={setReminderLists}
+            reminderLists={reminderLists}
+            isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+          />
+        ))}
+
+      {!isAllRemindersDisplayed &&
+        !isCompletedRemindersDisplayed &&
+        !isWithFlagRemindersDisplayed &&
+        listReminders.map((reminder) => (
+          <Reminder
+            key={reminder.id}
+            reminder={reminder}
+            listColor={listColor}
+            setReminderLists={setReminderLists}
+            reminderLists={reminderLists}
+            isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+          />
+        ))}
     </div>
   );
 };

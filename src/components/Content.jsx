@@ -1,4 +1,5 @@
 import { AddReminderButton } from "@components/AddReminderButton";
+import { AddReminderForm } from "@components/AddReminderForm";
 import { ReminderListHeader } from "@components/ReminderListHeader";
 import { RemindersContainer } from "@components/RemindersContainer";
 
@@ -9,6 +10,8 @@ export const Content = ({
   isAllRemindersDisplayed,
   isWithFlagRemindersDisplayed,
   isCompletedRemindersDisplayed,
+  isAddReminderFormOpen,
+  setIsAddReminderFormOpen,
 }) => {
   const reminderListDisplayed = reminderLists.find(
     (list) => list.id === reminderListDisplayedId,
@@ -37,7 +40,15 @@ export const Content = ({
   return (
     <div className="bg-grey-50 flex-grow overflow-auto p-2">
       <div className="pb-8 pl-2 pr-2">
-        <AddReminderButton />
+        {!isCompletedRemindersDisplayed &&
+          !isAllRemindersDisplayed &&
+          !isWithFlagRemindersDisplayed && (
+            <AddReminderButton
+              isAddReminderFormOpen={isAddReminderFormOpen}
+              setIsAddReminderFormOpen={setIsAddReminderFormOpen}
+            />
+          )}
+
         {isAllRemindersDisplayed && (
           <ReminderListHeader
             listTitle={"All"}
@@ -88,7 +99,9 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
               isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
             />
           ))}
 
@@ -104,7 +117,9 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
               isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
             />
           ))}
 
@@ -119,7 +134,9 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
               isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
             />
           ))}
 
@@ -134,7 +151,24 @@ export const Content = ({
               )}
               setReminderLists={setReminderLists}
               reminderLists={reminderLists}
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
               isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
+            />
+          )}
+
+        {!isCompletedRemindersDisplayed &&
+          !isAllRemindersDisplayed &&
+          !isWithFlagRemindersDisplayed &&
+          isAddReminderFormOpen && (
+            <AddReminderForm
+              reminderLists={reminderLists}
+              setReminderLists={setReminderLists}
+              listReminders={reminderListDisplayed.reminders}
+              listTitle={reminderListDisplayed.name}
+              listColor={reminderListDisplayed.color}
+              isAddReminderFormOpen={isAddReminderFormOpen}
+              setIsAddReminderFormOpen={setIsAddReminderFormOpen}
             />
           )}
       </div>
