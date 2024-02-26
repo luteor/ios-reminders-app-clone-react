@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { getDisplayColors } from "@utils/getDisplayColors";
 
@@ -11,7 +11,15 @@ export const AddReminderForm = ({
   isAddReminderFormOpen,
   setIsAddReminderFormOpen,
 }) => {
+  const [reminderContentValue, setReminderContentValue] = useState("");
   const addReminderFormRef = useRef(null);
+  const firstInputRef = useRef(null);
+
+  useEffect(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutsideAddReminderForm = (event) => {
@@ -96,38 +104,51 @@ export const AddReminderForm = ({
           />
           <div className="flex flex-col">
             <input
+              ref={firstInputRef}
+              value={reminderContentValue}
               type="text"
               id="reminder-content"
               name="content"
-              className="h-5 w-full  p-1 "
+              className="h-5 w-full p-1 outline-none"
+              onChange={(event) => setReminderContentValue(event.target.value)}
             />
             <input
               type="text"
               id="reminder-notes"
               name="notes"
               placeholder="Notes"
-              className="h-5 w-full  p-1 "
+              className="h-5 w-full p-1 outline-none"
+              onFocus={() =>
+                !reminderContentValue
+                  ? setReminderContentValue("New element")
+                  : null
+              }
             />
             <input
               type="text"
               id="reminder-tags"
               name="tags"
               placeholder="Add tags"
-              className="h-5 w-full  p-1 "
+              className="h-5 w-full p-1 outline-none"
+              onFocus={() =>
+                !reminderContentValue
+                  ? setReminderContentValue("New element")
+                  : null
+              }
             />
             <div className="flex flex-row">
               <input
                 type="date"
                 id="reminder-date"
                 name="date"
-                className="h-5 w-full  p-1"
+                className="h-5 w-full p-1 outline-none"
               />
 
               <input
                 type="text"
                 id="reminder-location"
                 name="location"
-                className="h-5 w-full  p-1 "
+                className="h-5 w-full  p-1 outline-none "
                 placeholder="Add location"
               />
 
