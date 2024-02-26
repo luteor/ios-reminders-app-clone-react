@@ -13,40 +13,38 @@
           "flag": true,
           "notes": "Prefer semi-skimmed milk.",
           "tags": ["Essential"],
-          "reminderDate": "2024-02-15T08:00:00",
+          "date": "2024-02-15T08:00:00",
           "priority": "medium",
           "url": "",
           "images": [],
           "state": false,
-          "listName": "Groceries"
+          "list": "Groceries"
         },
         {
           "id": 2,
           "content": "Buy eggs",
           "flag": false,
-          "description": "Need eggs for the cake recipe.",
+          "notes": "Need eggs for the cake recipe.",
           "tags": [],
-          "reminderDate": "2024-02-16T10:00:00",
+          "date": "2024-02-16T10:00:00",
           "priority": "high",
-          "notes": "",
           "url": "",
           "images": [],
           "state": false,
-          "listName": "Groceries"
+          "list": "Groceries"
         },
         {
           "id": 3,
           "content": "Buy vegetables",
           "flag": false,
-          "description": "Buy vegetables for the week.",
-          "notes": "Prefer organic vegetables.",
+          "notes": "Buy vegetables for the week.",
           "tags": ["Health"],
           "priority": "medium",
-          "reminderDate": "",
+          "date": "",
           "url": "",
           "images": [],
           "state": false,
-          "listName": "Groceries"
+          "list": "Groceries"
         }
       ]
     },
@@ -61,29 +59,28 @@
           "id": 4,
           "content": "Do laundry",
           "flag": true,
-          "description": "Don't forget to do laundry tonight.",
+          "notes": "Don't forget to do laundry tonight.",
           "priority": "low",
-          "notes": "",
+
           "tags": [],
-          "reminderDate": "",
+          "date": "",
           "url": "",
           "images": [],
           "state": false,
-          "listName": "Household chores"
+          "list": "Household chores"
         },
         {
           "id": 5,
           "content": "Clean the kitchen",
           "flag": false,
-          "description": "Clean the kitchen countertops and table.",
+          "notes": "Clean the kitchen countertops and table.",
           "priority": "medium",
-          "notes": "",
           "tags": [],
-          "reminderDate": "",
+          "date": "",
           "url": "",
           "images": [],
           "state": false,
-          "listName": "Household chores"
+          "list": "Household chores"
         }
       ]
     }
