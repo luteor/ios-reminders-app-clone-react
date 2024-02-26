@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { IoIosFlag } from "react-icons/io";
+import { IoFlagOutline } from "react-icons/io5";
 
 import { getDisplayColors } from "@utils/getDisplayColors";
 
@@ -93,71 +95,100 @@ export const AddReminderForm = ({
   const { checkedBgColor, checkedOutlineColor } = getDisplayColors(listColor);
 
   return (
-    <form onSubmit={handleSubmitAddReminderForm} ref={addReminderFormRef}>
+    <form ref={addReminderFormRef}>
       <div className="flex flex-row items-center justify-between border-b border-solid p-2">
         <div className="flex flex-row items-center justify-start gap-2">
+          <label htmlFor="reminder-state" className="sr-only">
+            State
+          </label>
           <input
             type="checkbox"
             name="state"
             id="reminder-state"
-            className={`peer flex h-4 w-4 appearance-none items-center justify-center rounded-full bg-white ${checkedBgColor} ${checkedOutlineColor} border border-solid border-gray-400 checked:border-none checked:outline checked:outline-1 checked:outline-offset-1`}
+            className={`flex h-4 w-4 appearance-none items-center justify-center rounded-full bg-white ${checkedBgColor} ${checkedOutlineColor} border border-solid border-gray-400 checked:border-none checked:outline checked:outline-1 checked:outline-offset-1`}
           />
+
           <div className="flex flex-col">
+            <label htmlFor="reminder-content" className="sr-only">
+              Content
+            </label>
             <input
               ref={firstInputRef}
               value={reminderContentValue}
               type="text"
               id="reminder-content"
               name="content"
-              className="h-5 w-full p-1 outline-none"
+              className="w-full text-sm outline-none"
               onChange={(event) => setReminderContentValue(event.target.value)}
             />
+
+            <label htmlFor="reminder-notes" className="sr-only">
+              Notes
+            </label>
             <input
               type="text"
               id="reminder-notes"
               name="notes"
               placeholder="Notes"
-              className="h-5 w-full p-1 outline-none"
+              className=" w-full  text-sm outline-none"
               onFocus={() =>
                 !reminderContentValue
                   ? setReminderContentValue("New element")
                   : null
               }
             />
+
+            <label htmlFor="reminder-tags" className="sr-only">
+              Tags
+            </label>
             <input
               type="text"
               id="reminder-tags"
               name="tags"
               placeholder="Add tags"
-              className="h-5 w-full p-1 outline-none"
+              className="w-full text-sm outline-none"
               onFocus={() =>
                 !reminderContentValue
                   ? setReminderContentValue("New element")
                   : null
               }
             />
-            <div className="flex flex-row">
+
+            <div className="flex flex-row items-center justify-start gap-2">
+              <label htmlFor="reminder-date" className="sr-only">
+                Date
+              </label>
               <input
                 type="date"
                 id="reminder-date"
                 name="date"
-                className="h-5 w-full p-1 outline-none"
+                className=" w-full rounded bg-gray-100 p-1 text-sm text-gray-500 outline-none"
               />
 
+              <label htmlFor="reminder-location" className="sr-only">
+                Location
+              </label>
               <input
                 type="text"
                 id="reminder-location"
                 name="location"
-                className="h-5 w-full  p-1 outline-none "
+                className="w-full rounded bg-gray-100 p-1 text-sm text-gray-500 outline-none "
                 placeholder="Add location"
               />
 
-              <input
-                type="checkbox"
-                name="flag"
-                id="reminder-flag"
-                className="h-5 w-full  p-1 "
-              />
+              <div className="relative flex items-center">
+                <label htmlFor="reminder-flag" className="sr-only">
+                  Flag
+                </label>
+                <input
+                  type="checkbox"
+                  name="flag"
+                  id="reminder-flag"
+                  className="peer h-6 w-6 appearance-none rounded-full  p-1 "
+                />
+                <IoFlagOutline className=" pointer-events-none absolute left-1/2 h-7 w-7 -translate-x-1/2 rounded bg-gray-200  p-1.5 text-gray-500 opacity-100 peer-checked:opacity-0" />
+                <IoIosFlag className=" pointer-events-none absolute  left-1/2 h-7 w-7 -translate-x-1/2 rounded bg-gray-200 p-1.5 text-orange-500 opacity-0 peer-checked:opacity-100" />
+              </div>
             </div>
           </div>
         </div>
