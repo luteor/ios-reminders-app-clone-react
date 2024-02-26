@@ -12,10 +12,12 @@ export const AddListModal = ({
   reminderLists,
   setReminderLists,
 }) => {
+  const [newList, setNewList] = useState({
+    name: "",
+    color: "red",
+    icon: undefined,
+  });
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
-  const [chosenListName, setChosenListName] = useState("");
-  const [chosenListEmoji, setChosenListEmoji] = useState(undefined);
-  const [chosenListColor, setChosenListColor] = useState("red");
   const emojiPickerRef = useRef(null);
   const firstInputRef = useRef(null);
 
@@ -43,26 +45,20 @@ export const AddListModal = ({
     };
   }, [isEmojiPickerOpen]);
 
-  const handleChangeName = (event) => {
-    setChosenListName(event.target.value);
-  };
-
-  const handleEmojiPickerClick = (event) => {
+  const handleClickEmojiPicker = (event) => {
     event.stopPropagation();
     setIsEmojiPickerOpen(!isEmojiPickerOpen);
   };
 
-  const handleEmojiSelect = (emojiObject) => {
-    setChosenListEmoji(emojiObject.emoji);
+  const handleSelectEmoji = (emojiObject) => {
+    setNewList({ ...newList, icon: emojiObject.emoji });
     setIsEmojiPickerOpen(false);
   };
 
-  const handleIconClick = (event) => {
+  const handleClickIconReset = (event) => {
     event.stopPropagation();
-    setChosenListEmoji(undefined);
+    setNewList({ ...newList, icon: undefined });
   };
-
-  const { bgColorLight, bgColorStandard } = getDisplayColors(chosenListColor);
 
   const handleSubmitAddListForm = (event) => {
     event.preventDefault();
@@ -96,6 +92,8 @@ export const AddListModal = ({
     setIsAddListModalOpen(false);
   };
 
+  const { bgColorLight, bgColorStandard } = getDisplayColors(newList.color);
+
   return createPortal(
     <dialog className="fixed inset-0 flex size-full items-center justify-center bg-gray-400 bg-opacity-50">
       <form
@@ -121,8 +119,10 @@ export const AddListModal = ({
             id="list-name"
             name="name"
             className="h-5 w-96 border border-solid border-gray-300 bg-white p-1 shadow-sm"
-            value={chosenListName}
-            onChange={handleChangeName}
+            value={newList.name}
+            onChange={(event) =>
+              setNewList({ ...newList, name: event.target.value })
+            }
           />
         </div>
 
@@ -143,7 +143,9 @@ export const AddListModal = ({
                     value={color.name}
                     className={`peer h-4 w-4 appearance-none rounded-full ${color.bgColors.standard}`}
                     defaultChecked={index === 0}
-                    onChange={() => setChosenListColor(color.name)}
+                    onChange={() =>
+                      setNewList({ ...newList, color: color.name })
+                    }
                   />
                   <span className="absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></span>
                 </label>
@@ -155,13 +157,13 @@ export const AddListModal = ({
             <label htmlFor="list-icon" className="text-sm">
               Icon:
             </label>
-            {chosenListEmoji ? (
+            {newList.icon ? (
               <input
                 id="list-icon"
                 name="icon"
                 className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorLight} pl-3 text-sm`}
-                value={chosenListEmoji}
-                onClick={handleEmojiPickerClick}
+                value={newList.icon}
+                onClick={handleClickEmojiPicker}
                 readOnly
               />
             ) : (
@@ -170,7 +172,7 @@ export const AddListModal = ({
               >
                 <BsEmojiGrin
                   className=" h-6 w-6  text-gray-500"
-                  onClick={handleEmojiPickerClick}
+                  onClick={handleClickEmojiPicker}
                 />
               </div>
             )}
@@ -178,7 +180,7 @@ export const AddListModal = ({
             <div className="absolute top-12 z-10" ref={emojiPickerRef}>
               <EmojiPicker
                 open={isEmojiPickerOpen}
-                onEmojiClick={handleEmojiSelect}
+                onEmojiClick={handleSelectEmoji}
                 height={500}
                 width={400}
                 previewConfig={{
@@ -192,7 +194,7 @@ export const AddListModal = ({
             >
               <IoListSharp
                 className="h-6 w-6 text-white"
-                onClick={handleIconClick}
+                onClick={handleClickIconReset}
               />
             </div>
           </div>
@@ -221,7 +223,7 @@ export const AddListModal = ({
             Cancel
           </button>
           <button
-            disabled={!chosenListName}
+            disabled={!newList.name}
             className="w-16 rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow disabled:opacity-30"
             type="submit"
           >
