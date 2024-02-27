@@ -111,12 +111,12 @@ export const AddListModal = ({
         </div>
         <div className="flex w-full flex-row justify-center gap-2">
           <label htmlFor="list-name" className="text-sm">
-            Name:{" "}
+            Name:
           </label>
           <input
             ref={firstInputRef}
-            type="text"
             id="list-name"
+            type="text"
             name="name"
             className="h-5 w-96 border border-solid border-gray-300 bg-white p-1 shadow-sm"
             value={newList.name}
@@ -128,17 +128,18 @@ export const AddListModal = ({
 
         <div className="flex w-full flex-row justify-between gap-2 border-b border-solid border-gray-200 pb-4">
           <div className="flex w-56 flex-row justify-start gap-2 border-r border-solid border-gray-200 pr-8">
-            <legend className="text-sm">Color:</legend>
+            <label htmlFor="list-color" className="text-sm">
+              Color:
+            </label>
             <div className="flex flex-row flex-wrap justify-start gap-2">
               {listColors.map((color, index) => (
-                <label
+                <div
                   key={`list-${color.name}`}
-                  htmlFor={color.name}
                   className="relative flex items-center"
                 >
                   <input
                     type="radio"
-                    id={`list-${color.name}`}
+                    id="list-color"
                     name="color"
                     value={color.name}
                     className={`peer h-4 w-4 appearance-none rounded-full ${color.bgColors.standard}`}
@@ -147,13 +148,13 @@ export const AddListModal = ({
                       setNewList({ ...newList, color: color.name })
                     }
                   />
-                  <span className="absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></span>
-                </label>
+                  <span className="pointer-events-none absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></span>
+                </div>
               ))}
             </div>
           </div>
 
-          <div className="relative flex flex-row flex-wrap justify-start gap-5">
+          <div className=" flex flex-row flex-wrap justify-start gap-5">
             <label htmlFor="list-icon" className="text-sm">
               Icon:
             </label>
@@ -161,7 +162,7 @@ export const AddListModal = ({
               <input
                 id="list-icon"
                 name="icon"
-                className={`relative h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorLight} pl-3 text-sm`}
+                className={` h-11 w-11 cursor-pointer appearance-none rounded-full ${bgColorLight} pl-3 text-sm`}
                 value={newList.icon}
                 onClick={handleClickEmojiPicker}
                 readOnly
