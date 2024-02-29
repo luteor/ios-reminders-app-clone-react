@@ -1,16 +1,13 @@
-import { listColors } from "@assets/listColors";
+import { colors } from "@assets/colors";
 
 export const getDisplayColors = (listColor) => {
-  if (listColor === "black") {
-    return { bgColorStandard: "bg-black", textColorStandard: "text-black" };
-  }
-  const color = listColors.find((color) => color.name === listColor);
+  const color = colors[listColor];
   return {
-    bgColorLight: color.bgColors.light,
-    bgColorStandard: color.bgColors.standard,
-    checkedBgColor: color.checked.bgChecked,
-    checkedOutlineColor: color.checked.outlineChecked,
-    textColorLight: color.textColors.light,
-    textColorStandard: color.textColors.standard,
+    bgColorLight: color.bg.light,
+    bgColorStandard: color.bg.standard,
+    checkedBgColor: color.checked.bg,
+    checkedOutlineColor: color.checked.outline,
+    textColorLight: color.text.light,
+    textColorStandard: color.text.standard,
   };
 };

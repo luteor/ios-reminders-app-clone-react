@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { listColors } from "@assets/listColors";
+import { colors } from "@assets/colors";
 import { getDisplayColors } from "@utils/getDisplayColors";
 import EmojiPicker from "emoji-picker-react";
 import { BsEmojiGrin } from "react-icons/bs";
@@ -94,6 +94,10 @@ export const AddListModal = ({
 
   const { bgColorLight, bgColorStandard } = getDisplayColors(newList.color);
 
+  const listColors = Object.keys(colors).filter(
+    (element) => element !== "black" && element !== "white",
+  );
+
   return createPortal(
     <dialog className="fixed inset-0 flex size-full items-center justify-center bg-gray-400 bg-opacity-50">
       <form
@@ -135,18 +139,16 @@ export const AddListModal = ({
               {listColors.map((color, index) => (
                 <div
                   className="relative flex items-center"
-                  key={`list-${color.name}`}
+                  key={`list-${color}`}
                 >
                   <input
-                    className={`peer h-4 w-4 appearance-none rounded-full ${color.bgColors.standard}`}
+                    className={`peer h-4 w-4 appearance-none rounded-full ${colors[color].bg.standard}`}
                     defaultChecked={index === 0}
                     id="list-color"
                     name="color"
-                    onChange={() =>
-                      setNewList({ ...newList, color: color.name })
-                    }
+                    onChange={() => setNewList({ ...newList, color: color })}
                     type="radio"
-                    value={color.name}
+                    value={color}
                   />
                   <span className="pointer-events-none absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white opacity-0 peer-checked:opacity-100"></span>
                 </div>
