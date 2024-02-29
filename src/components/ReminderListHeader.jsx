@@ -1,8 +1,8 @@
 import { getDisplayColors } from "@utils/getDisplayColors";
 
 export const ReminderListHeader = ({
-  listTitle,
   listColor,
+  listTitle,
   totalListReminders,
 }) => {
   const { textColorStandard } = getDisplayColors(listColor);

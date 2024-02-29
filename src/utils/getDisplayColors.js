@@ -8,9 +8,9 @@ export const getDisplayColors = (listColor) => {
   return {
     bgColorLight: color.bgColors.light,
     bgColorStandard: color.bgColors.standard,
-    textColorLight: color.textColors.light,
-    textColorStandard: color.textColors.standard,
     checkedBgColor: color.checked.bgChecked,
     checkedOutlineColor: color.checked.outlineChecked,
+    textColorLight: color.textColors.light,
+    textColorStandard: color.textColors.standard,
   };
 };

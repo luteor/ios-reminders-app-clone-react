@@ -2,11 +2,11 @@ import { IoCheckmarkOutline, IoFileTraySharp, IoFlag } from "react-icons/io5";
 
 export const FavoriteList = ({
   listTitle,
-  totalReminders,
   setIsAllRemindersDisplayed,
+  setIsCompletedRemindersDisplayed,
   setIsWithFlagRemindersDisplayed,
   setReminderListDisplayedId,
-  setIsCompletedRemindersDisplayed,
+  totalReminders,
 }) => {
   const handleClickOnFavoriteAllLists = () => {
     setReminderListDisplayedId(null);

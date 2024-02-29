@@ -1,16 +1,15 @@
+import { Reminder } from "@components/Reminder";
 import { getDisplayColors } from "@utils/getDisplayColors";
 
-import { Reminder } from "@components/Reminder";
-
 export const RemindersContainer = ({
-  listTitle,
-  listColor,
-  listReminders,
-  setReminderLists,
-  reminderLists,
   isAllRemindersDisplayed,
   isCompletedRemindersDisplayed,
   isWithFlagRemindersDisplayed,
+  listColor,
+  listReminders,
+  listTitle,
+  reminderLists,
+  setReminderLists,
 }) => {
   const { textColorStandard } = getDisplayColors(listColor);
   return (
@@ -24,36 +23,36 @@ export const RemindersContainer = ({
       {isAllRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
-            key={reminder.id}
-            reminder={reminder}
-            listColor={listColor}
-            setReminderLists={setReminderLists}
-            reminderLists={reminderLists}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            key={reminder.id}
+            listColor={listColor}
+            reminder={reminder}
+            reminderLists={reminderLists}
+            setReminderLists={setReminderLists}
           />
         ))}
 
       {isCompletedRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
-            key={reminder.id}
-            reminder={reminder}
-            listColor={"gray"}
-            setReminderLists={setReminderLists}
-            reminderLists={reminderLists}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            key={reminder.id}
+            listColor={"gray"}
+            reminder={reminder}
+            reminderLists={reminderLists}
+            setReminderLists={setReminderLists}
           />
         ))}
 
       {isWithFlagRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
-            key={reminder.id}
-            reminder={reminder}
-            listColor={"orange"}
-            setReminderLists={setReminderLists}
-            reminderLists={reminderLists}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            key={reminder.id}
+            listColor={"orange"}
+            reminder={reminder}
+            reminderLists={reminderLists}
+            setReminderLists={setReminderLists}
           />
         ))}
 
@@ -62,12 +61,12 @@ export const RemindersContainer = ({
         !isWithFlagRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
-            key={reminder.id}
-            reminder={reminder}
-            listColor={listColor}
-            setReminderLists={setReminderLists}
-            reminderLists={reminderLists}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            key={reminder.id}
+            listColor={listColor}
+            reminder={reminder}
+            reminderLists={reminderLists}
+            setReminderLists={setReminderLists}
           />
         ))}
     </div>

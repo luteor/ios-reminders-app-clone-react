@@ -3,84 +3,86 @@
     {
       "id": 1,
       "name": "Groceries",
-      "color": "green",
       "icon": "😄",
-      "type": "standard",
+      "color": "green",
       "reminders": [
         {
           "id": 1,
           "content": "Buy milk",
-          "flag": true,
-          "notes": "Prefer semi-skimmed milk.",
-          "tags": ["Essential"],
           "date": "2024-02-15T08:00:00",
-          "priority": "medium",
-          "url": "",
+          "flag": true,
           "images": [],
+          "list": "Groceries",
+          "notes": "Prefer semi-skimmed milk.",
+          "priority": "medium",
           "state": false,
-          "list": "Groceries"
+          "tags": ["Essential"],
+          "type": "standard",
+          "url": ""
         },
         {
           "id": 2,
           "content": "Buy eggs",
-          "flag": false,
-          "notes": "Need eggs for the cake recipe.",
-          "tags": [],
           "date": "2024-02-16T10:00:00",
-          "priority": "high",
-          "url": "",
+          "flag": false,
           "images": [],
+          "list": "Groceries",
+          "notes": "Need eggs for the cake recipe.",
+          "priority": "high",
           "state": false,
-          "list": "Groceries"
+          "tags": [],
+          "type": "standard",
+          "url": ""
         },
         {
           "id": 3,
           "content": "Buy vegetables",
-          "flag": false,
-          "notes": "Buy vegetables for the week.",
-          "tags": ["Health"],
-          "priority": "medium",
           "date": "",
-          "url": "",
+          "flag": false,
           "images": [],
+          "list": "Groceries",
+          "notes": "Buy vegetables for the week.",
+          "priority": "medium",
           "state": false,
-          "list": "Groceries"
+          "tags": ["Health"],
+          "type": "standard",
+          "url": ""
         }
       ]
     },
     {
       "id": 2,
-      "name": "Household chores",
       "color": "blue",
       "icon": "",
-      "type": "standard",
+      "name": "Household chores",
       "reminders": [
         {
           "id": 4,
           "content": "Do laundry",
+          "date": "",
           "flag": true,
+          "images": [],
+          "list": "Household chores",
           "notes": "Don't forget to do laundry tonight.",
           "priority": "low",
-
-          "tags": [],
-          "date": "",
-          "url": "",
-          "images": [],
           "state": false,
-          "list": "Household chores"
+          "tags": [],
+          "type": "standard",
+          "url": ""
         },
         {
           "id": 5,
           "content": "Clean the kitchen",
+          "date": "",
           "flag": false,
+          "images": [],
+          "list": "Household chores",
           "notes": "Clean the kitchen countertops and table.",
           "priority": "medium",
-          "tags": [],
-          "date": "",
-          "url": "",
-          "images": [],
           "state": false,
-          "list": "Household chores"
+          "tags": [],
+          "type": "standard",
+          "url": ""
         }
       ]
     }

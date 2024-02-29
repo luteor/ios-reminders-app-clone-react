@@ -11,8 +11,8 @@ export default defineConfig({
       "@components": `${path.resolve(__dirname, "src/components")}`,
       "@contexts": `${path.resolve(__dirname, "src/contexts")}`,
       "@hooks": `${path.resolve(__dirname, "src/hooks")}`,
-      "@utils": `${path.resolve(__dirname, "src/utils")}`,
       "@public": `${path.resolve(__dirname, "public")}`,
+      "@utils": `${path.resolve(__dirname, "src/utils")}`,
     },
   },
 });

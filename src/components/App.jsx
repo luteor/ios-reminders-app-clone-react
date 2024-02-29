@@ -17,24 +17,24 @@ function App({ reminderData }) {
   return (
     <div className="flex h-lvh flex-row">
       <Sidebar
+        isAddListModalOpen={isAddListModalOpen}
         reminderLists={reminderLists}
-        setReminderLists={setReminderLists}
+        setIsAddListModalOpen={setIsAddListModalOpen}
         setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
         setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
         setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
         setReminderListDisplayedId={setReminderListDisplayedId}
-        setIsAddListModalOpen={setIsAddListModalOpen}
-        isAddListModalOpen={isAddListModalOpen}
+        setReminderLists={setReminderLists}
       />
       <Content
-        reminderLists={reminderLists}
-        setReminderLists={setReminderLists}
-        isAllRemindersDisplayed={isAllRemindersDisplayed}
-        isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
-        isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
-        reminderListDisplayedId={reminderListDisplayedId}
         isAddReminderFormOpen={isAddReminderFormOpen}
+        isAllRemindersDisplayed={isAllRemindersDisplayed}
+        isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+        isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
+        reminderListDisplayedId={reminderListDisplayedId}
+        reminderLists={reminderLists}
         setIsAddReminderFormOpen={setIsAddReminderFormOpen}
+        setReminderLists={setReminderLists}
       />
     </div>
   );

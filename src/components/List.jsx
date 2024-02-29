@@ -1,16 +1,15 @@
+import { getDisplayColors } from "@utils/getDisplayColors";
 import { IoListSharp } from "react-icons/io5";
 
-import { getDisplayColors } from "@utils/getDisplayColors";
-
 export const List = ({
-  listId,
-  listTitle,
   listColor,
   listIcon,
-  setReminderListDisplayedId,
+  listId,
+  listTitle,
   setIsAllRemindersDisplayed,
-  setIsWithFlagRemindersDisplayed,
   setIsCompletedRemindersDisplayed,
+  setIsWithFlagRemindersDisplayed,
+  setReminderListDisplayedId,
 }) => {
   const handleClickOnList = () => {
     setReminderListDisplayedId(listId);

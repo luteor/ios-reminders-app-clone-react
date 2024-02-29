@@ -4,14 +4,14 @@ import { ReminderListHeader } from "@components/ReminderListHeader";
 import { RemindersContainer } from "@components/RemindersContainer";
 
 export const Content = ({
-  reminderLists,
-  setReminderLists,
-  reminderListDisplayedId,
-  isAllRemindersDisplayed,
-  isWithFlagRemindersDisplayed,
-  isCompletedRemindersDisplayed,
   isAddReminderFormOpen,
+  isAllRemindersDisplayed,
+  isCompletedRemindersDisplayed,
+  isWithFlagRemindersDisplayed,
+  reminderListDisplayedId,
+  reminderLists,
   setIsAddReminderFormOpen,
+  setReminderLists,
 }) => {
   const reminderListDisplayed = reminderLists.find(
     (list) => list.id === reminderListDisplayedId,
@@ -51,24 +51,24 @@ export const Content = ({
 
         {isAllRemindersDisplayed && (
           <ReminderListHeader
-            listTitle={"All"}
             listColor={"black"}
+            listTitle={"All"}
             totalListReminders={totalAllReminders}
           />
         )}
 
         {isWithFlagRemindersDisplayed && (
           <ReminderListHeader
-            listTitle={"With flag"}
             listColor={"orange"}
+            listTitle={"With flag"}
             totalListReminders={totalFlagsReminders}
           />
         )}
 
         {isCompletedRemindersDisplayed && (
           <ReminderListHeader
-            listTitle={"Completed"}
             listColor={"gray"}
+            listTitle={"Completed"}
             totalListReminders={totalCompletedReminders}
           />
         )}
@@ -77,8 +77,8 @@ export const Content = ({
           !isWithFlagRemindersDisplayed &&
           !isCompletedRemindersDisplayed && (
             <ReminderListHeader
-              listTitle={reminderListDisplayed.name}
               listColor={reminderListDisplayed.color}
+              listTitle={reminderListDisplayed.name}
               totalListReminders={
                 reminderListDisplayed.reminders.filter(
                   (reminder) => reminder.state === false,
@@ -91,52 +91,52 @@ export const Content = ({
         {isAllRemindersDisplayed &&
           reminderLists.map((list) => (
             <RemindersContainer
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
               key={list.id}
-              listTitle={list.name}
               listColor={list.color}
               listReminders={list.reminders.filter(
                 (reminder) => reminder.state === false,
               )}
-              setReminderLists={setReminderLists}
+              listTitle={list.name}
               reminderLists={reminderLists}
-              isAllRemindersDisplayed={isAllRemindersDisplayed}
-              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
-              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
+              setReminderLists={setReminderLists}
             />
           ))}
 
         {isWithFlagRemindersDisplayed &&
           reminderLists.map((list) => (
             <RemindersContainer
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
               key={list.id}
-              listTitle={null}
               listColor={list.color}
               listReminders={list.reminders.filter(
                 (reminder) =>
                   reminder.flag === true && reminder.state === false,
               )}
-              setReminderLists={setReminderLists}
+              listTitle={null}
               reminderLists={reminderLists}
-              isAllRemindersDisplayed={isAllRemindersDisplayed}
-              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
-              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
+              setReminderLists={setReminderLists}
             />
           ))}
 
         {isCompletedRemindersDisplayed &&
           reminderLists.map((list) => (
             <RemindersContainer
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
               key={list.id}
-              listTitle={list.name}
               listColor={list.color}
               listReminders={list.reminders.filter(
                 (reminder) => reminder.state === true,
               )}
-              setReminderLists={setReminderLists}
+              listTitle={list.name}
               reminderLists={reminderLists}
-              isAllRemindersDisplayed={isAllRemindersDisplayed}
-              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
-              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
+              setReminderLists={setReminderLists}
             />
           ))}
 
@@ -144,16 +144,16 @@ export const Content = ({
           !isWithFlagRemindersDisplayed &&
           !isCompletedRemindersDisplayed && (
             <RemindersContainer
-              listTitle={null}
+              isAllRemindersDisplayed={isAllRemindersDisplayed}
+              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
               listColor={reminderListDisplayed.color}
               listReminders={reminderListDisplayed.reminders.filter(
                 (reminder) => reminder.state === false,
               )}
-              setReminderLists={setReminderLists}
+              listTitle={null}
               reminderLists={reminderLists}
-              isAllRemindersDisplayed={isAllRemindersDisplayed}
-              isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
-              isWithFlagRemindersDisplayed={isWithFlagRemindersDisplayed}
+              setReminderLists={setReminderLists}
             />
           )}
 
@@ -162,13 +162,13 @@ export const Content = ({
           !isWithFlagRemindersDisplayed &&
           isAddReminderFormOpen && (
             <AddReminderForm
-              reminderLists={reminderLists}
-              setReminderLists={setReminderLists}
+              isAddReminderFormOpen={isAddReminderFormOpen}
+              listColor={reminderListDisplayed.color}
               listReminders={reminderListDisplayed.reminders}
               listTitle={reminderListDisplayed.name}
-              listColor={reminderListDisplayed.color}
-              isAddReminderFormOpen={isAddReminderFormOpen}
+              reminderLists={reminderLists}
               setIsAddReminderFormOpen={setIsAddReminderFormOpen}
+              setReminderLists={setReminderLists}
             />
           )}
       </div>

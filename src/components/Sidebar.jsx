@@ -4,14 +4,14 @@ import { FavoriteList } from "@components/FavoriteList";
 import { List } from "@components/List";
 
 export const Sidebar = ({
-  reminderLists,
-  setReminderLists,
-  setReminderListDisplayedId,
-  setIsAllRemindersDisplayed,
-  setIsWithFlagRemindersDisplayed,
-  setIsCompletedRemindersDisplayed,
-  setIsAddListModalOpen,
   isAddListModalOpen,
+  reminderLists,
+  setIsAddListModalOpen,
+  setIsAllRemindersDisplayed,
+  setIsCompletedRemindersDisplayed,
+  setIsWithFlagRemindersDisplayed,
+  setReminderListDisplayedId,
+  setReminderLists,
 }) => {
   const totalAllReminders = reminderLists.reduce((total, list) => {
     return (
@@ -38,27 +38,27 @@ export const Sidebar = ({
       <div className="flex flex-row flex-wrap justify-between gap-2">
         <FavoriteList
           listTitle={"All"}
-          totalReminders={totalAllReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
-          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setReminderListDisplayedId={setReminderListDisplayedId}
+          totalReminders={totalAllReminders}
         />
         <FavoriteList
           listTitle={"With flag"}
-          totalReminders={totalFlagsReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
-          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setReminderListDisplayedId={setReminderListDisplayedId}
+          totalReminders={totalFlagsReminders}
         />
         <FavoriteList
           listTitle={"Completed"}
-          totalReminders={totalCompletedReminders}
           setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
-          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+          setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
           setReminderListDisplayedId={setReminderListDisplayedId}
+          totalReminders={totalCompletedReminders}
         />
       </div>
       <div className="flex flex-col gap-2 p-2">
@@ -66,13 +66,13 @@ export const Sidebar = ({
         {reminderLists.map((list) => (
           <List
             key={list.id}
-            listId={list.id}
-            listTitle={list.name}
             listColor={list.color}
             listIcon={list.icon}
+            listId={list.id}
+            listTitle={list.name}
             setIsAllRemindersDisplayed={setIsAllRemindersDisplayed}
-            setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
             setIsCompletedRemindersDisplayed={setIsCompletedRemindersDisplayed}
+            setIsWithFlagRemindersDisplayed={setIsWithFlagRemindersDisplayed}
             setReminderListDisplayedId={setReminderListDisplayedId}
           />
         ))}
@@ -80,8 +80,8 @@ export const Sidebar = ({
       <AddListButton setIsAddListModalOpen={setIsAddListModalOpen} />
       {isAddListModalOpen && (
         <AddListModal
-          setIsAddListModalOpen={setIsAddListModalOpen}
           reminderLists={reminderLists}
+          setIsAddListModalOpen={setIsAddListModalOpen}
           setReminderLists={setReminderLists}
         />
       )}
