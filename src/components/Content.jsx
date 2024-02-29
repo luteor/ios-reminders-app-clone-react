@@ -1,18 +1,21 @@
+import { useState } from "react";
+
 import { AddReminderButton } from "@components/AddReminderButton";
 import { AddReminderForm } from "@components/AddReminderForm";
 import { ReminderListHeader } from "@components/ReminderListHeader";
 import { RemindersContainer } from "@components/RemindersContainer";
 
 export const Content = ({
-  isAddReminderFormOpen,
   isAllRemindersDisplayed,
   isCompletedRemindersDisplayed,
   isWithFlagRemindersDisplayed,
   reminderListDisplayedId,
   reminderLists,
-  setIsAddReminderFormOpen,
+
   setReminderLists,
 }) => {
+  const [isAddReminderFormOpen, setIsAddReminderFormOpen] = useState(false);
+
   const reminderListDisplayed = reminderLists.find(
     (list) => list.id === reminderListDisplayedId,
   );
