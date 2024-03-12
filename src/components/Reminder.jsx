@@ -58,14 +58,25 @@ export const Reminder = ({
         <div className="flex flex-row items-center gap-3">
           <IoInformationCircleOutline
             className="relative h-6 w-auto text-blue-500 opacity-0 group-hover:opacity-100"
-            onClick={() => setIsUpdateReminderFormOpen(true)}
+            onClick={(event) => {
+              event.stopPropagation();
+              setIsUpdateReminderFormOpen(true);
+            }}
           />
           {reminder.flag ? (
             <IoIosFlag className="h-3.5 w-auto text-orange-500" />
           ) : null}
         </div>
       </div>
-      {isUpdateReminderFormOpen && <UpdateReminderForm reminder={reminder} />}
+      {isUpdateReminderFormOpen && (
+        <UpdateReminderForm
+          isUpdateReminderFormOpen={isUpdateReminderFormOpen}
+          reminder={reminder}
+          reminderLists={reminderLists}
+          setIsUpdateReminderFormOpen={setIsUpdateReminderFormOpen}
+          setReminderLists={setReminderLists}
+        />
+      )}
     </div>
   );
 };

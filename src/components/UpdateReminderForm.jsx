@@ -1,18 +1,99 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { useRef } from "react";
+
+import { convertToDateOnly } from "@utils/convertToDateOnly";
 import { IoIosFlag } from "react-icons/io";
 import { IoFlagOutline } from "react-icons/io5";
 
-export const UpdateReminderForm = ({ reminder }) => {
+export const UpdateReminderForm = ({
+  isUpdateReminderFormOpen,
+  reminder,
+  reminderLists,
+  setIsUpdateReminderFormOpen,
+  setReminderLists,
+}) => {
+  const [reminderFlagValue, setReminderFlagValue] = useState(reminder.flag);
+  const [isReminderDayWarn, setIsReminderDayWarn] = useState(
+    reminder.date ? true : false,
+  );
+  const [isReminderHourWarn, setIsReminderHourWarn] = useState(
+    reminder.hour ? true : false,
+  );
+
+  const updateReminderFormRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutsideAddReminderForm = (event) => {
+      if (
+        isUpdateReminderFormOpen &&
+        updateReminderFormRef.current &&
+        !updateReminderFormRef.current.contains(event.target)
+      ) {
+        handleSubmitUpdateReminderForm(event);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutsideAddReminderForm);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutsideAddReminderForm);
+    };
+  }, [isUpdateReminderFormOpen]);
+
+  const handleSubmitUpdateReminderForm = (event) => {
+    event.preventDefault();
+    const formData = new FormData(updateReminderFormRef.current);
+
+    const reminderFlag = formData.get("flag");
+    if (!reminderFlag) {
+      formData.set("flag", "false");
+    }
+
+    const updateReminderData = Object.fromEntries(formData);
+
+    const updatedReminderLists = reminderLists.map((reminderList) => ({
+      ...reminderList,
+      reminders: reminderList.reminders.map((r) =>
+        r.id === reminder.id
+          ? {
+              ...r,
+              content: updateReminderData.content,
+              date: updateReminderData.date,
+              early: updateReminderData.early,
+              flag: updateReminderData.flag === "on" ? true : false,
+              hour: updateReminderData.hour,
+              notes: updateReminderData.notes,
+              priority: updateReminderData.priority,
+              recurrence: updateReminderData.recurrence,
+            }
+          : r,
+      ),
+    }));
+
+    console.log(updateReminderData);
+    console.log(updatedReminderLists);
+    setReminderLists(updatedReminderLists);
+
+    setIsUpdateReminderFormOpen(false);
+  };
+
   return (
-    <form className="absolute right-20 top-0 z-10 h-auto w-80 rounded-lg border border-solid border-gray-300 bg-stone-100 p-4 shadow-lg">
+    <form
+      className="absolute right-20 top-0 z-10 h-auto w-80 rounded-lg border border-solid border-gray-300 bg-stone-100 p-4 shadow-lg"
+      ref={updateReminderFormRef}
+    >
       <div className="absolute right-5 top-5">
         <div className="relative">
           <label className="sr-only" htmlFor="reminder-flag">
             Flag
           </label>
           <input
+            checked={reminderFlagValue}
             className="peer h-6 w-6 appearance-none"
             id="reminder-flag"
             name="flag"
+            onChange={() => setReminderFlagValue(!reminderFlagValue)}
             type="checkbox"
           />
           <IoFlagOutline className="pointer-events-none absolute left-1/2 top-1/2 h-7 w-9 -translate-x-1/2 -translate-y-1/2 rounded border bg-white p-1.5 text-gray-500 opacity-100 peer-checked:opacity-0" />
@@ -36,6 +117,7 @@ export const UpdateReminderForm = ({ reminder }) => {
       </label>
       <input
         className=" w-full border-b bg-transparent pb-1 text-sm outline-none"
+        defaultValue={reminder.notes}
         id="reminder-notes"
         name="notes"
         placeholder="Notes"
@@ -60,61 +142,61 @@ export const UpdateReminderForm = ({ reminder }) => {
             <div className="flex flex-col gap-2">
               <div className="flex flex-row gap-1">
                 <input
-                  id="reminder-day-warn-checkbox"
-                  name="day-checkbox"
+                  checked={isReminderDayWarn}
+                  id="reminder-date-checkbox"
+                  name="date-checkbox"
+                  onChange={() => setIsReminderDayWarn(!isReminderDayWarn)}
                   type="checkbox"
                 />
-                <label htmlFor="reminder-day-warn-checkbox">On a day</label>
+                <label htmlFor="reminder-date-checkbox">On a day</label>
               </div>
-              <div>
-                <input
-                  className="bg-transparent"
-                  defaultValue={"2024-03-12"}
-                  id="reminder-day-warn"
-                  name="day"
-                  type="date"
-                />
-                <label className="sr-only" htmlFor="reminder-day-warn">
-                  Date
-                </label>
-              </div>
+              {isReminderDayWarn && (
+                <div>
+                  <input
+                    className="bg-transparent"
+                    defaultValue={convertToDateOnly(reminder.date)}
+                    id="reminder-date"
+                    name="date"
+                    type="date"
+                  />
+                  <label className="sr-only" htmlFor="reminder-date">
+                    Date
+                  </label>
+                </div>
+              )}
+
               <div className="flex flex-row gap-1">
                 <input
-                  id="reminder-time-warn-checkbox"
-                  name="time-checkbox"
+                  checked={isReminderHourWarn}
+                  id="reminder-hour-checkbox"
+                  name="hour-checkbox"
+                  onChange={() => setIsReminderHourWarn(!isReminderHourWarn)}
                   type="checkbox"
                 />
-                <label htmlFor="reminder-time-warn-checkbox">At a time</label>
+                <label htmlFor="reminder-hour-checkbox">At a time</label>
               </div>
-              <div>
-                <input
-                  className="appearance-none bg-transparent"
-                  defaultValue="17:00"
-                  id="reminder-time-warn"
-                  name="time"
-                  type="time"
-                />
-                <label className="sr-only" htmlFor="reminder-time-warn">
-                  Date
-                </label>
+              {isReminderHourWarn && (
+                <div>
+                  <input
+                    className="appearance-none bg-transparent"
+                    defaultValue={reminder.hour}
+                    id="reminder-hour"
+                    name="hour"
+                    type="time"
+                  />
+                  <label className="sr-only" htmlFor="reminder-hour">
+                    Date
+                  </label>
+                </div>
+              )}
+
+              <div className="flex flex-row gap-1">
+                <input id="reminder-location" name="location" type="checkbox" />
+                <label htmlFor="reminder-location">At a location</label>
               </div>
               <div className="flex flex-row gap-1">
-                <input
-                  id="reminder-location-warn"
-                  name="location"
-                  type="checkbox"
-                />
-                <label htmlFor="reminder-location-warn">At a location</label>
-              </div>
-              <div className="flex flex-row gap-1">
-                <input
-                  id="reminder-message-warn"
-                  name="message"
-                  type="checkbox"
-                />
-                <label htmlFor="reminder-message-warn">
-                  When a message is sent
-                </label>
+                <input id="reminder-phone" name="phone" type="checkbox" />
+                <label htmlFor="reminder-phone">When a message is sent</label>
               </div>
             </div>
           </div>
@@ -127,17 +209,20 @@ export const UpdateReminderForm = ({ reminder }) => {
           <div className="w-8/12">
             <select
               className="appearance-none bg-transparent"
+              defaultValue={reminder.early}
               id="early-reminder"
               name="early"
             >
-              <option value="">Everyday</option>
+              <option value="">None</option>
+              <option value="5 minutes before">5 minutes before</option>
+              <option value="15 minutes before">15 minutes before</option>
+              <option value="30 minutes before">30 minutes before</option>
+              <option value="1 hour before">1 hour before</option>
+              <option value="2 hours before">2 hours before</option>
               <option value="1 day before">1 day before</option>
               <option value="2 days before">2 days before</option>
               <option value="1 week before">1 week before</option>
-              <option value="2 weeks before">2 weeks before</option>
               <option value="1 month before">1 month before</option>
-              <option value="3 months before">3 months before</option>
-              <option value="6 months before">6 months before</option>
             </select>
           </div>
         </div>
@@ -149,6 +234,7 @@ export const UpdateReminderForm = ({ reminder }) => {
           <div className="w-8/12">
             <select
               className="appearance-none bg-transparent"
+              defaultValue={reminder.recurrence}
               id="reminder-recurrence"
               name="recurrence"
             >
@@ -176,6 +262,7 @@ export const UpdateReminderForm = ({ reminder }) => {
         <div className="w-8/12">
           <select
             className="appearance-none bg-transparent"
+            defaultValue={reminder.priority}
             id="reminder-priority"
             name="priority"
           >
@@ -195,6 +282,7 @@ export const UpdateReminderForm = ({ reminder }) => {
           <div className="w-8/12">
             <input
               className="bg-transparent"
+              defaultValue={reminder.url}
               id="reminder-url"
               name="url"
               placeholder="None"
