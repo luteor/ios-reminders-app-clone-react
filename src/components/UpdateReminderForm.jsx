@@ -78,7 +78,13 @@ export const UpdateReminderForm = ({
       formData.set("flag", "false");
     }
 
+    const urlValue = formData.get("url")?.toString();
+    if (urlValue && !urlValue.startsWith("https://")) {
+      formData.set("url", "");
+    }
+
     const updateReminderData = Object.fromEntries(formData);
+    console.log(updateReminderData);
 
     const updatedTags = reminderTagValuesRef.current;
 
@@ -97,6 +103,7 @@ export const UpdateReminderForm = ({
               priority: updateReminderData.priority,
               recurrence: updateReminderData.recurrence,
               tags: updatedTags,
+              url: updateReminderData.url,
             }
           : r,
       ),
