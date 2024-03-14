@@ -14,14 +14,21 @@ export const UpdateReminderForm = ({
   setReminderLists,
 }) => {
   const [reminderFlagValue, setReminderFlagValue] = useState(reminder.flag);
-  const [isReminderDayWarn, setIsReminderDayWarn] = useState(
+  const [reminderTagValues, setReminderTagValues] = useState(reminder.tags);
+  const [currentReminderTagValue, setCurrentReminderTagValue] = useState("");
+  const [isReminderDate, setIsReminderDate] = useState(
     reminder.date ? true : false,
   );
-  const [isReminderHourWarn, setIsReminderHourWarn] = useState(
+  const [isReminderHour, setIsReminderHour] = useState(
     reminder.hour ? true : false,
   );
 
   const updateReminderFormRef = useRef(null);
+  const reminderTagValuesRef = useRef(reminder.tags);
+
+  useEffect(() => {
+    reminderTagValuesRef.current = reminderTagValues;
+  }, [reminderTagValues]);
 
   useEffect(() => {
     const handleClickOutsideAddReminderForm = (event) => {
@@ -41,6 +48,27 @@ export const UpdateReminderForm = ({
     };
   }, [isUpdateReminderFormOpen]);
 
+  const handleCurrentTagValueChange = (event) => {
+    setCurrentReminderTagValue(event.target.value);
+  };
+
+  const handleCurrentTagValueKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      const trimmedTag = event.target.value.trim();
+      if (trimmedTag && !reminderTagValues.includes(trimmedTag)) {
+        setReminderTagValues([...reminderTagValues, trimmedTag]);
+      }
+      setCurrentReminderTagValue("");
+    }
+  };
+
+  const handleKeyDown = (event, tag) => {
+    if (event.key === "Backspace") {
+      const updatedTags = reminderTagValues.filter((t) => t !== tag);
+      setReminderTagValues(updatedTags);
+    }
+  };
+
   const handleSubmitUpdateReminderForm = (event) => {
     event.preventDefault();
     const formData = new FormData(updateReminderFormRef.current);
@@ -51,6 +79,8 @@ export const UpdateReminderForm = ({
     }
 
     const updateReminderData = Object.fromEntries(formData);
+
+    const updatedTags = reminderTagValuesRef.current;
 
     const updatedReminderLists = reminderLists.map((reminderList) => ({
       ...reminderList,
@@ -66,15 +96,13 @@ export const UpdateReminderForm = ({
               notes: updateReminderData.notes,
               priority: updateReminderData.priority,
               recurrence: updateReminderData.recurrence,
+              tags: updatedTags,
             }
           : r,
       ),
     }));
 
-    console.log(updateReminderData);
-    console.log(updatedReminderLists);
     setReminderLists(updatedReminderLists);
-
     setIsUpdateReminderFormOpen(false);
   };
 
@@ -127,13 +155,33 @@ export const UpdateReminderForm = ({
       <label className="sr-only" htmlFor="reminder-tags">
         Tags
       </label>
-      <input
-        className="w-full border-b bg-transparent pb-1 text-sm outline-none"
-        id="reminder-tags"
-        name="tags"
-        placeholder="Add tags"
-        type="text"
-      />
+      <div className="flex flex-row gap-1 overflow-auto border-b p-1">
+        {reminderTagValues.length > 0 && (
+          <div className="flex flex-grow flex-row gap-1 bg-transparent">
+            {reminderTagValues.map((tag, index) => (
+              <span
+                className="select-all bg-transparent text-xs"
+                key={index}
+                onKeyDown={(event) => handleKeyDown(event, tag)}
+                tabIndex={0}
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <input
+          className="w-full bg-transparent text-xs outline-none"
+          id="reminder-tags"
+          name="tags"
+          onChange={handleCurrentTagValueChange}
+          onKeyDown={handleCurrentTagValueKeyDown}
+          placeholder={reminderTagValues.length > 0 ? "" : "Add tags"}
+          type="text"
+          value={currentReminderTagValue}
+        />
+      </div>
 
       <fieldset className="flex w-full flex-col gap-2 border-b p-2 text-xs">
         <div className="flex flex-row items-start gap-4">
@@ -142,15 +190,15 @@ export const UpdateReminderForm = ({
             <div className="flex flex-col gap-2">
               <div className="flex flex-row gap-1">
                 <input
-                  checked={isReminderDayWarn}
+                  checked={isReminderDate}
                   id="reminder-date-checkbox"
                   name="date-checkbox"
-                  onChange={() => setIsReminderDayWarn(!isReminderDayWarn)}
+                  onChange={() => setIsReminderDate(!isReminderDate)}
                   type="checkbox"
                 />
                 <label htmlFor="reminder-date-checkbox">On a day</label>
               </div>
-              {isReminderDayWarn && (
+              {isReminderDate && (
                 <div>
                   <input
                     className="bg-transparent"
@@ -167,15 +215,15 @@ export const UpdateReminderForm = ({
 
               <div className="flex flex-row gap-1">
                 <input
-                  checked={isReminderHourWarn}
+                  checked={isReminderHour}
                   id="reminder-hour-checkbox"
                   name="hour-checkbox"
-                  onChange={() => setIsReminderHourWarn(!isReminderHourWarn)}
+                  onChange={() => setIsReminderHour(!isReminderHour)}
                   type="checkbox"
                 />
                 <label htmlFor="reminder-hour-checkbox">At a time</label>
               </div>
-              {isReminderHourWarn && (
+              {isReminderHour && (
                 <div>
                   <input
                     className="appearance-none bg-transparent"
