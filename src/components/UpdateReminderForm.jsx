@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRef } from "react";
 
 import { convertToDateOnly } from "@utils/convertToDateOnly";
-import { IoIosFlag } from "react-icons/io";
+import { IoIosFlag, IoMdTrash } from "react-icons/io";
 import { IoFlagOutline } from "react-icons/io5";
 
 export const UpdateReminderForm = ({
@@ -16,6 +16,9 @@ export const UpdateReminderForm = ({
   const [reminderFlagValue, setReminderFlagValue] = useState(reminder.flag);
   const [reminderTagValues, setReminderTagValues] = useState(reminder.tags);
   const [currentReminderTagValue, setCurrentReminderTagValue] = useState("");
+  const [reminderImageValues, setReminderImageValues] = useState(
+    reminder.images,
+  );
   const [isReminderDate, setIsReminderDate] = useState(
     reminder.date ? true : false,
   );
@@ -25,10 +28,15 @@ export const UpdateReminderForm = ({
 
   const updateReminderFormRef = useRef(null);
   const reminderTagValuesRef = useRef(reminder.tags);
+  const reminderImagesValuesRef = useRef(reminder.images);
 
   useEffect(() => {
     reminderTagValuesRef.current = reminderTagValues;
   }, [reminderTagValues]);
+
+  useEffect(() => {
+    reminderImagesValuesRef.current = reminderImageValues;
+  }, [reminderImageValues]);
 
   useEffect(() => {
     const handleClickOutsideAddReminderForm = (event) => {
@@ -69,6 +77,25 @@ export const UpdateReminderForm = ({
     }
   };
 
+  const handleImageTrashClick = (event, image) => {
+    event.stopPropagation();
+    const updatedImages = reminderImageValues.filter((i) => i !== image);
+    console.log(updatedImages);
+    setReminderImageValues(updatedImages);
+  };
+
+  const handleImageChange = (event) => {
+    const files = Array.from(event.target.files);
+    console.log(files);
+    const newFiles = files.filter(
+      (file) =>
+        !reminderImageValues.some(
+          (existingFile) => existingFile.name === file.name,
+        ),
+    );
+    setReminderImageValues([...reminderImageValues, ...newFiles]);
+  };
+
   const handleSubmitUpdateReminderForm = (event) => {
     event.preventDefault();
     const formData = new FormData(updateReminderFormRef.current);
@@ -83,10 +110,13 @@ export const UpdateReminderForm = ({
       formData.set("url", "");
     }
 
+    console.log(reminderImageValues);
+
     const updateReminderData = Object.fromEntries(formData);
     console.log(updateReminderData);
 
     const updatedTags = reminderTagValuesRef.current;
+    const updatedImages = reminderImagesValuesRef.current;
 
     const updatedReminderLists = reminderLists.map((reminderList) => ({
       ...reminderList,
@@ -99,6 +129,7 @@ export const UpdateReminderForm = ({
               early: updateReminderData.early,
               flag: updateReminderData.flag === "on" ? true : false,
               hour: updateReminderData.hour,
+              images: updatedImages,
               notes: updateReminderData.notes,
               priority: updateReminderData.priority,
               recurrence: updateReminderData.recurrence,
@@ -351,21 +382,35 @@ export const UpdateReminderForm = ({
             Images
           </label>
           <div className=" w-8/12">
-            <label className="file-button" htmlFor="reminder-images">
-              <input
-                className="hidden"
-                id="reminder-images"
-                name="images"
-                type="file"
-              />
-              <div className="file-icon flex flex-row items-center gap-1">
-                <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-gray-500 text-xs">
-                  +
-                </span>
-                <span>Add an image...</span>
-              </div>
-            </label>
+            <input
+              className="hidden"
+              id="reminder-images"
+              key={reminderImageValues.length}
+              name="images"
+              onChange={handleImageChange}
+              type="file"
+            />
+            <div className="file-icon flex flex-row items-center gap-1">
+              <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-gray-500 text-xs">
+                +
+              </span>
+              <span>Add an image...</span>
+            </div>
           </div>
+        </div>
+        <div className="flex flex-row">
+          {reminderImageValues.map((image, index) => (
+            <div className="flex flex-row items-end" key={index}>
+              <img
+                alt={`Thumbnail ${index}`}
+                className="h-10 w-10  object-contain"
+                src={URL.createObjectURL(image)}
+              />
+              <IoMdTrash
+                onClick={(event) => handleImageTrashClick(event, image)}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </form>
