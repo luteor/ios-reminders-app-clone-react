@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Reminder } from "@components/Reminder";
 import { getDisplayColors } from "@utils/getDisplayColors";
 
@@ -11,7 +13,16 @@ export const RemindersContainer = ({
   reminderLists,
   setReminderLists,
 }) => {
+  const [openUpdateReminderFormId, setOpenUpdateReminderFormId] =
+    useState(null);
+
+  const handleIconClick = (event, id) => {
+    event.stopPropagation();
+    setOpenUpdateReminderFormId(openUpdateReminderFormId === id ? null : id);
+  };
+
   const { textColorStandard } = getDisplayColors(listColor);
+
   return (
     <div className={listTitle ? "pb-6" : ""}>
       {listTitle && listReminders.length && !isCompletedRemindersDisplayed ? (
@@ -23,11 +34,14 @@ export const RemindersContainer = ({
       {isAllRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
+            handleIconClick={handleIconClick}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            isUpdateReminderFormOpen={openUpdateReminderFormId === reminder.id}
             key={reminder.id}
             listColor={listColor}
             reminder={reminder}
             reminderLists={reminderLists}
+            setOpenUpdateReminderFormId={setOpenUpdateReminderFormId}
             setReminderLists={setReminderLists}
           />
         ))}
@@ -35,11 +49,14 @@ export const RemindersContainer = ({
       {isCompletedRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
+            handleIconClick={handleIconClick}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            isUpdateReminderFormOpen={openUpdateReminderFormId === reminder.id}
             key={reminder.id}
             listColor={"gray"}
             reminder={reminder}
             reminderLists={reminderLists}
+            setOpenUpdateReminderFormId={setOpenUpdateReminderFormId}
             setReminderLists={setReminderLists}
           />
         ))}
@@ -47,11 +64,14 @@ export const RemindersContainer = ({
       {isWithFlagRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
+            handleIconClick={handleIconClick}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            isUpdateReminderFormOpen={openUpdateReminderFormId === reminder.id}
             key={reminder.id}
             listColor={"orange"}
             reminder={reminder}
             reminderLists={reminderLists}
+            setOpenUpdateReminderFormId={setOpenUpdateReminderFormId}
             setReminderLists={setReminderLists}
           />
         ))}
@@ -61,11 +81,14 @@ export const RemindersContainer = ({
         !isWithFlagRemindersDisplayed &&
         listReminders.map((reminder) => (
           <Reminder
+            handleIconClick={handleIconClick}
             isCompletedRemindersDisplayed={isCompletedRemindersDisplayed}
+            isUpdateReminderFormOpen={openUpdateReminderFormId === reminder.id}
             key={reminder.id}
             listColor={listColor}
             reminder={reminder}
             reminderLists={reminderLists}
+            setOpenUpdateReminderFormId={setOpenUpdateReminderFormId}
             setReminderLists={setReminderLists}
           />
         ))}
