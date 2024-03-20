@@ -32,12 +32,14 @@ export const UpdateReminderForm = ({
   }, [reminderImages]);
 
   useEffect(() => {
+    const initialReminderContent = reminder.content;
+
     const handleClickOutsideAddReminderForm = (event) => {
       if (
         updateReminderFormRef.current &&
         !updateReminderFormRef.current.contains(event.target)
       ) {
-        handleUpdateReminderFormSubmit(event);
+        handleUpdateReminderFormSubmit(event, initialReminderContent);
       }
     };
 
@@ -86,10 +88,15 @@ export const UpdateReminderForm = ({
     setReminderImages(updatedImages);
   };
 
-  const handleUpdateReminderFormSubmit = (event) => {
+  const handleUpdateReminderFormSubmit = (event, initialReminderContent) => {
     event.preventDefault();
 
     const formData = new FormData(updateReminderFormRef.current);
+
+    const reminderContent = formData.get("content");
+    if (!reminderContent) {
+      formData.set("content", initialReminderContent);
+    }
 
     const reminderFlag = formData.get("flag");
     if (!reminderFlag) {
@@ -137,21 +144,21 @@ export const UpdateReminderForm = ({
       className="absolute right-8 top-0 z-10 h-auto w-80 rounded-lg border border-solid border-gray-300 bg-stone-100 p-4 shadow-lg"
       ref={updateReminderFormRef}
     >
-      <div className="absolute right-5 top-5">
+      <div className="absolute right-4 top-3">
         <div className="relative">
           <label className="sr-only" htmlFor="reminder-flag">
             Flag
           </label>
           <input
             checked={isReminderFlagged}
-            className="peer h-6 w-6 appearance-none"
+            className="peer h-7 w-7 appearance-none"
             id="reminder-flag"
             name="flag"
             onChange={() => setIsReminderFlagged(!isReminderFlagged)}
             type="checkbox"
           />
-          <IoFlagOutline className="pointer-events-none absolute left-1/2 top-1/2 h-7 w-9 -translate-x-1/2 -translate-y-1/2 rounded border bg-white p-1.5 text-gray-500 opacity-100 peer-checked:opacity-0" />
-          <IoIosFlag className="pointer-events-none absolute left-1/2 top-1/2 h-7 w-9 -translate-x-1/2 -translate-y-1/2 rounded border bg-white p-1.5 text-orange-500 opacity-0 peer-checked:opacity-100" />
+          <IoFlagOutline className="pointer-events-none absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded border bg-white px-1.5 py-1 text-gray-500 opacity-100 peer-checked:opacity-0" />
+          <IoIosFlag className="pointer-events-none absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded border bg-white px-1.5 py-1 text-orange-500 opacity-0 peer-checked:opacity-100" />
         </div>
       </div>
 
@@ -163,6 +170,7 @@ export const UpdateReminderForm = ({
         defaultValue={reminder.content}
         id="reminder-content"
         name="content"
+        placeholder="Title"
         type="text"
       />
 
@@ -170,7 +178,7 @@ export const UpdateReminderForm = ({
         Notes
       </label>
       <input
-        className=" w-full border-b bg-transparent pb-1 text-xs font-medium outline-none"
+        className=" w-full border-b bg-transparent pb-1 text-xs outline-none"
         defaultValue={reminder.notes}
         id="reminder-notes"
         name="notes"
@@ -183,7 +191,7 @@ export const UpdateReminderForm = ({
       </label>
       <div className="flex flex-row gap-1 overflow-auto border-b py-2">
         {reminderTags.length > 0 && (
-          <div className="flex flex-grow flex-row gap-1 bg-transparent font-medium">
+          <div className="flex flex-grow flex-row gap-1 bg-transparent ">
             {reminderTags.map((tag, index) => (
               <span
                 className="select-all bg-transparent text-xs text-sky-900"
@@ -200,7 +208,7 @@ export const UpdateReminderForm = ({
         )}
 
         <input
-          className="w-full bg-transparent text-xs font-medium outline-none placeholder-shown:font-normal"
+          className="w-full bg-transparent text-xs outline-none placeholder-shown:font-normal"
           id="reminder-tags"
           name="tags"
           onChange={handleNewTagValueChange}
@@ -213,7 +221,7 @@ export const UpdateReminderForm = ({
 
       <fieldset className="flex w-full flex-col gap-2 border-b py-2 text-xs">
         <div className="flex flex-row items-start gap-4">
-          <legend className="w-4/12 text-right">warn me</legend>
+          <legend className="w-4/12 text-right text-gray-600">warn me</legend>
           <div className="w-8/12">
             <div className="flex flex-col gap-2">
               <div className="flex flex-row gap-1">
@@ -224,14 +232,14 @@ export const UpdateReminderForm = ({
                   onChange={() => setHasReminderDate(!hasReminderDate)}
                   type="checkbox"
                 />
-                <label className="font-medium" htmlFor="reminder-date-checkbox">
+                <label className="" htmlFor="reminder-date-checkbox">
                   On a day
                 </label>
               </div>
               {hasReminderDate && (
                 <div>
                   <input
-                    className="bg-transparent font-medium"
+                    className="bg-transparent text-gray-600"
                     defaultValue={convertToDateOnly(reminder.date)}
                     id="reminder-date"
                     name="date"
@@ -251,14 +259,14 @@ export const UpdateReminderForm = ({
                   onChange={() => setHasReminderHour(!hasReminderHour)}
                   type="checkbox"
                 />
-                <label className="font-medium" htmlFor="reminder-hour-checkbox">
+                <label className="" htmlFor="reminder-hour-checkbox">
                   At a time
                 </label>
               </div>
               {hasReminderHour && (
                 <div>
                   <input
-                    className="bg-transparent font-medium"
+                    className="bg-transparent text-gray-600"
                     defaultValue={reminder.hour}
                     id="reminder-hour"
                     name="hour"
@@ -283,12 +291,15 @@ export const UpdateReminderForm = ({
         </div>
 
         <div className="flew-row flex items-center gap-4">
-          <label className="w-4/12 text-right" htmlFor="early-reminder">
+          <label
+            className="w-4/12 text-right text-gray-600"
+            htmlFor="early-reminder"
+          >
             early reminder
           </label>
           <div className="w-8/12">
             <select
-              className="appearance-none bg-transparent font-medium"
+              className="appearance-none bg-transparent "
               defaultValue={reminder.early}
               id="early-reminder"
               name="early"
@@ -308,12 +319,15 @@ export const UpdateReminderForm = ({
         </div>
 
         <div className="flew-row flex items-center gap-4">
-          <label className="w-4/12 text-right" htmlFor="reminder-recurrence">
+          <label
+            className="w-4/12 text-right text-gray-600"
+            htmlFor="reminder-recurrence"
+          >
             recurrence
           </label>
           <div className="w-8/12">
             <select
-              className="appearance-none bg-transparent font-medium"
+              className="appearance-none bg-transparent "
               defaultValue={reminder.recurrence}
               id="reminder-recurrence"
               name="recurrence"
@@ -336,12 +350,15 @@ export const UpdateReminderForm = ({
       </fieldset>
 
       <div className="flex flex-row items-center gap-4 border-b py-2 text-xs">
-        <label className="w-4/12 text-right" htmlFor="reminder-priority">
+        <label
+          className="w-4/12 text-right text-gray-600"
+          htmlFor="reminder-priority"
+        >
           priority
         </label>
         <div className="w-8/12">
           <select
-            className="appearance-none bg-transparent font-medium"
+            className="appearance-none bg-transparent "
             defaultValue={reminder.priority}
             id="reminder-priority"
             name="priority"
@@ -356,7 +373,10 @@ export const UpdateReminderForm = ({
 
       <div className="flex flex-col gap-2 pt-2 text-xs">
         <div className="flex flex-row items-center gap-4">
-          <label className="w-4/12 text-right" htmlFor="reminder-url">
+          <label
+            className="w-4/12 text-right text-gray-600"
+            htmlFor="reminder-url"
+          >
             URL
           </label>
           <div className="w-8/12">
@@ -372,7 +392,10 @@ export const UpdateReminderForm = ({
         </div>
 
         <div className="flex flex-row items-center gap-4">
-          <label className="w-4/12 text-right" htmlFor="reminder-images">
+          <label
+            className="w-4/12 text-right text-gray-600"
+            htmlFor="reminder-images"
+          >
             images
           </label>
           <label className=" w-8/12" htmlFor="reminder-images">
@@ -385,10 +408,10 @@ export const UpdateReminderForm = ({
               type="file"
             />
             <div className="file-icon flex flex-row items-center gap-1">
-              <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-gray-500 text-xs">
+              <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full border border-gray-500 text-xs text-gray-600">
                 +
               </span>
-              <span>Add an image...</span>
+              <span className="text-gray-600">Add an image...</span>
             </div>
           </label>
         </div>

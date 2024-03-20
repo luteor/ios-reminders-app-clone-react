@@ -14,6 +14,9 @@ export const AddReminderForm = ({
   setReminderLists,
 }) => {
   const [reminderContentValue, setReminderContentValue] = useState("");
+  const [newReminderTags, setNewReminderTags] = useState([]);
+  const [newTagValue, setNewTagValue] = useState("");
+
   const addReminderFormRef = useRef(null);
   const firstInputRef = useRef(null);
 
@@ -40,6 +43,27 @@ export const AddReminderForm = ({
       document.removeEventListener("click", handleClickOutsideAddReminderForm);
     };
   }, [isAddReminderFormOpen]);
+
+  const handleNewTagValueChange = (event) => {
+    setNewTagValue(event.target.value);
+  };
+
+  const handleNewTagValueKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      const trimmedTag = event.target.value.trim();
+      if (trimmedTag && !newReminderTags.includes(trimmedTag)) {
+        setNewReminderTags([...newReminderTags, trimmedTag]);
+      }
+      setNewTagValue("");
+    }
+  };
+
+  const handleReminderTagDeleteKeyDown = (event, tag) => {
+    if (event.key === "Backspace") {
+      const updatedTags = newReminderTags.filter((t) => t !== tag);
+      setNewReminderTags(updatedTags);
+    }
+  };
 
   const handleSubmitAddReminderForm = (event) => {
     event.preventDefault();
@@ -74,7 +98,7 @@ export const AddReminderForm = ({
         notes: newReminderData.notes,
         priority: "",
         state: newReminderData.state === "on" ? true : false,
-        tags: newReminderData.tags,
+        tags: newReminderTags,
         url: "",
       };
 
@@ -96,8 +120,8 @@ export const AddReminderForm = ({
 
   return (
     <form ref={addReminderFormRef}>
-      <div className="flex flex-row items-center justify-between border-b border-solid p-2">
-        <div className="flex flex-row items-center justify-start gap-2">
+      <div className="flex flex-row items-start justify-between border-b border-solid p-2">
+        <div className="flex flex-row items-start gap-2">
           <label className="sr-only" htmlFor="reminder-state">
             State
           </label>
@@ -108,7 +132,7 @@ export const AddReminderForm = ({
             type="checkbox"
           />
 
-          <div className="flex flex-col">
+          <div className="flex flex-col items-start">
             <label className="sr-only" htmlFor="reminder-content">
               Content
             </label>
@@ -126,7 +150,7 @@ export const AddReminderForm = ({
               Notes
             </label>
             <input
-              className=" w-full  text-sm outline-none"
+              className="w-full text-sm text-gray-500 outline-none"
               id="reminder-notes"
               name="notes"
               onFocus={() =>
@@ -138,11 +162,11 @@ export const AddReminderForm = ({
               type="text"
             />
 
-            <label className="sr-only" htmlFor="reminder-tags">
+            {/* <label className="sr-only" htmlFor="reminder-tags">
               Tags
             </label>
             <input
-              className="w-full text-sm outline-none"
+              className="w-full text-sm text-gray-500 outline-none"
               id="reminder-tags"
               name="tags"
               onFocus={() =>
@@ -152,42 +176,80 @@ export const AddReminderForm = ({
               }
               placeholder="Add tags"
               type="text"
-            />
+            /> */}
+
+            <label className="sr-only" htmlFor="reminder-tags">
+              Tags
+            </label>
+            <div className="flex flex-row items-center gap-1 overflow-auto">
+              {newReminderTags.length > 0 && (
+                <div className="flex flex-grow flex-row gap-1 bg-transparent ">
+                  {newReminderTags.map((tag, index) => (
+                    <span
+                      className="select-all bg-transparent text-sm text-sky-900"
+                      key={index}
+                      onKeyDown={(event) =>
+                        handleReminderTagDeleteKeyDown(event, tag)
+                      }
+                      tabIndex={0}
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <input
+                className="w-full text-sm text-gray-500 outline-none placeholder-shown:font-normal"
+                id="reminder-tags"
+                name="tags"
+                onChange={handleNewTagValueChange}
+                onFocus={() =>
+                  !reminderContentValue
+                    ? setReminderContentValue("New element")
+                    : null
+                }
+                onKeyDown={handleNewTagValueKeyDown}
+                placeholder={newReminderTags.length > 0 ? "" : "Add tags"}
+                type="text"
+                value={newTagValue}
+              />
+            </div>
 
             <div className="flex flex-row items-center justify-start gap-2">
               <label className="sr-only" htmlFor="reminder-date">
                 Date
               </label>
               <input
-                className=" w-full rounded bg-gray-100 p-1 text-sm text-gray-500 outline-none"
+                className=" w-full rounded bg-gray-100 p-1 text-xs text-gray-500 outline-none"
                 id="reminder-date"
                 name="date"
                 type="date"
               />
 
-              <label className="sr-only" htmlFor="reminder-location">
+              {/* <label className="sr-only" htmlFor="reminder-location">
                 Location
               </label>
               <input
-                className="w-full rounded bg-gray-100 p-1 text-sm text-gray-500 outline-none "
+                className="w-full rounded bg-gray-100 p-1 text-xs text-gray-500 outline-none "
                 id="reminder-location"
                 name="location"
                 placeholder="Add location"
                 type="text"
-              />
+              /> */}
 
               <div className="relative flex items-center">
                 <label className="sr-only" htmlFor="reminder-flag">
                   Flag
                 </label>
                 <input
-                  className="peer h-6 w-6 appearance-none rounded-full  p-1 "
+                  className="peer h-5 w-5 appearance-none rounded-full p-1 "
                   id="reminder-flag"
                   name="flag"
                   type="checkbox"
                 />
-                <IoFlagOutline className=" pointer-events-none absolute left-1/2 h-7 w-7 -translate-x-1/2 rounded bg-gray-200  p-1.5 text-gray-500 opacity-100 peer-checked:opacity-0" />
-                <IoIosFlag className=" pointer-events-none absolute  left-1/2 h-7 w-7 -translate-x-1/2 rounded bg-gray-200 p-1.5 text-orange-500 opacity-0 peer-checked:opacity-100" />
+                <IoFlagOutline className=" pointer-events-none absolute left-1/2 h-6 w-6 -translate-x-1/2 rounded bg-gray-100  p-1.5 text-gray-500 opacity-100 peer-checked:opacity-0" />
+                <IoIosFlag className=" pointer-events-none absolute  left-1/2 h-6 w-6 -translate-x-1/2 rounded bg-gray-100 p-1.5 text-orange-500 opacity-0 peer-checked:opacity-100" />
               </div>
             </div>
           </div>

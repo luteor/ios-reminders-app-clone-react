@@ -45,12 +45,12 @@ export const Reminder = ({
               ? "border-none bg-gray-500 outline outline-1 outline-offset-1 outline-gray-500 checked:border checked:border-solid checked:border-gray-400 checked:bg-white checked:outline-none"
               : `bg-white ${checkedBgColor} ${checkedOutlineColor} border border-solid border-gray-400 checked:border-none checked:outline checked:outline-1 checked:outline-offset-1`
           }`}
-          id="reminder"
-          name="reminder"
+          id="reminder-state"
+          name="state"
           onChange={handleReminderCheck}
           type="checkbox"
         />
-        <div className="flex flex-col justify-start">
+        <div className="flex flex-col items-start">
           <div className="flex flex-row items-center gap-1">
             {reminder.priority && (
               <span className={`${textColorStandard} text-xs`}>
