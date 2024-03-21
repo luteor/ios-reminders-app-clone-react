@@ -5,7 +5,6 @@ import { IoIosFlag } from "react-icons/io";
 import { IoFlagOutline } from "react-icons/io5";
 
 export const AddReminderForm = ({
-  isAddReminderFormOpen,
   listColor,
   listReminders,
   listTitle,
@@ -13,9 +12,10 @@ export const AddReminderForm = ({
   setIsAddReminderFormOpen,
   setReminderLists,
 }) => {
-  const [reminderContentValue, setReminderContentValue] = useState("");
+  const [reminderContent, setReminderContent] = useState("");
   const [newReminderTags, setNewReminderTags] = useState([]);
   const [newTagValue, setNewTagValue] = useState("");
+  const [hasReminderDate, setHasReminderDate] = useState(false);
 
   const addReminderFormRef = useRef(null);
   const firstInputRef = useRef(null);
@@ -24,29 +24,22 @@ export const AddReminderForm = ({
     if (firstInputRef.current) {
       firstInputRef.current.focus();
     }
-  }, []);
 
-  useEffect(() => {
-    const handleClickOutsideAddReminderForm = (event) => {
+    const handleAddReminderFormClickOutside = (event) => {
       if (
-        isAddReminderFormOpen &&
         addReminderFormRef.current &&
         !addReminderFormRef.current.contains(event.target)
       ) {
-        handleSubmitAddReminderForm(event);
+        handleAddReminderFormSubmit(event);
       }
     };
 
-    document.addEventListener("click", handleClickOutsideAddReminderForm);
+    document.addEventListener("click", handleAddReminderFormClickOutside);
 
     return () => {
-      document.removeEventListener("click", handleClickOutsideAddReminderForm);
+      document.removeEventListener("click", handleAddReminderFormClickOutside);
     };
-  }, [isAddReminderFormOpen]);
-
-  const handleNewTagValueChange = (event) => {
-    setNewTagValue(event.target.value);
-  };
+  }, []);
 
   const handleNewTagValueKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -65,7 +58,7 @@ export const AddReminderForm = ({
     }
   };
 
-  const handleSubmitAddReminderForm = (event) => {
+  const handleAddReminderFormSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(addReminderFormRef.current);
 
@@ -91,14 +84,20 @@ export const AddReminderForm = ({
       const newReminder = {
         content: newReminderData.content,
         date: newReminderData.date,
+        early: "",
         flag: newReminderData.flag === "on" ? true : false,
+        hour: newReminderData.hour,
         id: lastReminderId + 1,
         images: [],
         list: newReminderData.list,
+        location: "",
         notes: newReminderData.notes,
+        phone: "",
         priority: "",
+        recurrence: "",
         state: newReminderData.state === "on" ? true : false,
         tags: newReminderTags,
+        type: "standard",
         url: "",
       };
 
@@ -140,10 +139,10 @@ export const AddReminderForm = ({
               className="w-full text-sm outline-none"
               id="reminder-content"
               name="content"
-              onChange={(event) => setReminderContentValue(event.target.value)}
+              onChange={(event) => setReminderContent(event.target.value)}
               ref={firstInputRef}
               type="text"
-              value={reminderContentValue}
+              value={reminderContent}
             />
 
             <label className="sr-only" htmlFor="reminder-notes">
@@ -154,9 +153,7 @@ export const AddReminderForm = ({
               id="reminder-notes"
               name="notes"
               onFocus={() =>
-                !reminderContentValue
-                  ? setReminderContentValue("New element")
-                  : null
+                !reminderContent ? setReminderContent("New element") : null
               }
               placeholder="Notes"
               type="text"
@@ -203,11 +200,9 @@ export const AddReminderForm = ({
                 className="w-full text-sm text-gray-500 outline-none placeholder-shown:font-normal"
                 id="reminder-tags"
                 name="tags"
-                onChange={handleNewTagValueChange}
+                onChange={(event) => setNewTagValue(event.target.value)}
                 onFocus={() =>
-                  !reminderContentValue
-                    ? setReminderContentValue("New element")
-                    : null
+                  !reminderContent ? setReminderContent("New element") : null
                 }
                 onKeyDown={handleNewTagValueKeyDown}
                 placeholder={newReminderTags.length > 0 ? "" : "Add tags"}
@@ -224,8 +219,22 @@ export const AddReminderForm = ({
                 className=" w-full rounded bg-gray-100 p-1 text-xs text-gray-500 outline-none"
                 id="reminder-date"
                 name="date"
+                onChange={(event) => setHasReminderDate(!!event.target.value)}
                 type="date"
               />
+              {hasReminderDate && (
+                <>
+                  <label className="sr-only" htmlFor="reminder-date">
+                    Hour
+                  </label>
+                  <input
+                    className=" w-full rounded bg-gray-100 p-1 text-xs text-gray-500 outline-none"
+                    id="reminder-hour"
+                    name="hour"
+                    type="time"
+                  />
+                </>
+              )}
 
               {/* <label className="sr-only" htmlFor="reminder-location">
                 Location

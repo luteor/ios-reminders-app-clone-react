@@ -9,8 +9,8 @@ export const colors = {
       outline: "checked:outline-white",
     },
     text: {
-      light: "text-white",
-      standard: "text-white",
+      light: "text-black",
+      standard: "text-black",
     },
   },
   blue: {

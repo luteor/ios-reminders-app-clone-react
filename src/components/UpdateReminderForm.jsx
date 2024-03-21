@@ -34,7 +34,7 @@ export const UpdateReminderForm = ({
   useEffect(() => {
     const initialReminderContent = reminder.content;
 
-    const handleClickOutsideAddReminderForm = (event) => {
+    const handleUpdateReminderFormClickOutside = (event) => {
       if (
         updateReminderFormRef.current &&
         !updateReminderFormRef.current.contains(event.target)
@@ -43,16 +43,15 @@ export const UpdateReminderForm = ({
       }
     };
 
-    document.addEventListener("click", handleClickOutsideAddReminderForm);
+    document.addEventListener("click", handleUpdateReminderFormClickOutside);
 
     return () => {
-      document.removeEventListener("click", handleClickOutsideAddReminderForm);
+      document.removeEventListener(
+        "click",
+        handleUpdateReminderFormClickOutside,
+      );
     };
   }, []);
-
-  const handleNewTagValueChange = (event) => {
-    setNewTagValue(event.target.value);
-  };
 
   const handleNewTagValueKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -211,7 +210,7 @@ export const UpdateReminderForm = ({
           className="w-full bg-transparent text-xs outline-none placeholder-shown:font-normal"
           id="reminder-tags"
           name="tags"
-          onChange={handleNewTagValueChange}
+          onChange={(event) => setNewTagValue(event.target.value)}
           onKeyDown={handleNewTagValueKeyDown}
           placeholder={reminderTags.length > 0 ? "" : "Add tags"}
           type="text"
@@ -237,7 +236,7 @@ export const UpdateReminderForm = ({
                 </label>
               </div>
               {hasReminderDate && (
-                <div>
+                <>
                   <input
                     className="bg-transparent text-gray-600"
                     defaultValue={convertToDateOnly(reminder.date)}
@@ -248,7 +247,7 @@ export const UpdateReminderForm = ({
                   <label className="sr-only" htmlFor="reminder-date">
                     Date
                   </label>
-                </div>
+                </>
               )}
 
               <div className="flex flex-row gap-1">
@@ -264,7 +263,7 @@ export const UpdateReminderForm = ({
                 </label>
               </div>
               {hasReminderHour && (
-                <div>
+                <>
                   <input
                     className="bg-transparent text-gray-600"
                     defaultValue={reminder.hour}
@@ -275,7 +274,7 @@ export const UpdateReminderForm = ({
                   <label className="sr-only" htmlFor="reminder-hour">
                     Date
                   </label>
-                </div>
+                </>
               )}
 
               {/* <div className="flex flex-row gap-1">
