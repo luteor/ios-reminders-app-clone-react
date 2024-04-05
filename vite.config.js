@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/macos-reminders-app-clone-react",
   plugins: [react()],
   resolve: {
     alias: {
