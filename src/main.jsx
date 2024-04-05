@@ -1,6 +1,6 @@
 /* eslint-disable perfectionist/sort-objects */
 import React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 
 import { DataContextProvider } from "@contexts/DataContext";
 import { AllRemindersList } from "@routes/AllRemindersList";
@@ -15,9 +15,9 @@ import ReactDOM from "react-dom/client";
 
 import "./index.css";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: "/",
+    path: "/*",
     element: <Root />,
     children: [
       {
