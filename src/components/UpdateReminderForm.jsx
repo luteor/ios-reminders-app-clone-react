@@ -2,15 +2,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 
-import { convertToDateOnly } from "@utils/convertToDateOnly";
+import { useData } from "@hooks/useData";
+import { convertToDateOnly } from "@utils/dateUtils";
 import { IoIosFlag, IoMdTrash } from "react-icons/io";
 import { IoFlagOutline } from "react-icons/io5";
 
 export const UpdateReminderForm = ({
   reminder,
-  reminderLists,
   setOpenUpdateReminderFormId,
-  setReminderLists,
 }) => {
   const [isReminderFlagged, setIsReminderFlagged] = useState(reminder.flag);
   const [reminderTags, setReminderTags] = useState(reminder.tags);
@@ -22,6 +21,8 @@ export const UpdateReminderForm = ({
   const updateReminderFormRef = useRef(null);
   const reminderTagsRef = useRef(reminder.tags);
   const reminderImagesRef = useRef(reminder.images);
+
+  const { reminderLists, setReminderLists } = useData();
 
   useEffect(() => {
     reminderTagsRef.current = reminderTags;

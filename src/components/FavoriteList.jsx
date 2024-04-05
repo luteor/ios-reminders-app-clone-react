@@ -1,64 +1,49 @@
-import { IoCheckmarkOutline, IoFileTraySharp, IoFlag } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
+
+import { getDisplayColors } from "@utils/colorUtils";
 
 export const FavoriteList = ({
+  listColor,
+  listIcon,
   listTitle,
-  setIsAllRemindersDisplayed,
-  setIsCompletedRemindersDisplayed,
-  setIsWithFlagRemindersDisplayed,
-  setReminderListDisplayedId,
+  listUrl,
   totalReminders,
 }) => {
-  const handleClickOnFavoriteAllLists = () => {
-    setReminderListDisplayedId(null);
-
-    if (listTitle === "All") {
-      setIsAllRemindersDisplayed(true);
-      setIsWithFlagRemindersDisplayed(false);
-      setIsCompletedRemindersDisplayed(false);
-    }
-    if (listTitle === "With flag") {
-      setIsAllRemindersDisplayed(false);
-      setIsWithFlagRemindersDisplayed(true);
-      setIsCompletedRemindersDisplayed(false);
-    }
-    if (listTitle === "Completed") {
-      setIsAllRemindersDisplayed(false);
-      setIsWithFlagRemindersDisplayed(false);
-      setIsCompletedRemindersDisplayed(true);
-    }
-  };
+  const { bgColorStandard, textColorStandard } = getDisplayColors(listColor);
   return (
-    <div
-      className="flex h-auto w-32 cursor-pointer flex-col justify-between gap-1 rounded-lg bg-stone-300 p-2"
-      onClick={handleClickOnFavoriteAllLists}
+    <NavLink
+      className={({ isActive }) =>
+        `flex h-auto w-32 cursor-pointer flex-col justify-between gap-1 rounded-lg ${
+          isActive ? bgColorStandard : "bg-stone-300"
+        } p-2`
+      }
+      to={listUrl}
     >
-      <div className="flex flex-row justify-between">
-        {listTitle === "All" && (
-          <div
-            className={`flex h-6 w-6 appearance-none  items-center justify-center rounded-full bg-gray-900`}
-          >
-            <IoFileTraySharp className=" h-4 w-4 text-white" />
+      {({ isActive }) => (
+        <>
+          <div className="flex flex-row items-center justify-between">
+            {listIcon && (
+              <div
+                className={`${isActive ? "bg-white " + textColorStandard : bgColorStandard + " text-white"} flex h-6 w-6 appearance-none items-center justify-center rounded-full`}
+              >
+                {listIcon}
+              </div>
+            )}
+
+            <span
+              className={`${isActive ? "text-white" : "text-gray-700"} text-xl font-bold`}
+            >
+              {totalReminders}
+            </span>
           </div>
-        )}
-        {listTitle === "With flag" && (
-          <div
-            className={`flex h-6 w-6 appearance-none  items-center justify-center rounded-full bg-orange-400`}
+
+          <span
+            className={`${isActive ? "text-white" : "text-gray-700"} text-sm font-semibold`}
           >
-            <IoFlag className=" h-3.5 w-3.5 text-white" />
-          </div>
-        )}
-        {listTitle === "Completed" && (
-          <div
-            className={`flex h-6 w-6 appearance-none  items-center justify-center rounded-full bg-gray-500`}
-          >
-            <IoCheckmarkOutline className=" h-5 w-5 text-white" />
-          </div>
-        )}
-        {listTitle !== "Completed" && (
-          <span className="text-xl font-bold">{totalReminders}</span>
-        )}
-      </div>
-      <span className="text-sm">{listTitle}</span>
-    </div>
+            {listTitle}
+          </span>
+        </>
+      )}
+    </NavLink>
   );
 };

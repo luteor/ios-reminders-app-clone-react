@@ -6,8 +6,8 @@ export const AddListButton = ({ setIsAddListModalOpen }) => {
       className="flex flex-row items-center gap-2"
       onClick={() => setIsAddListModalOpen(true)}
     >
-      <IoIosAddCircleOutline />
-      <span className="text-sm">Ajouter une liste</span>
+      <IoIosAddCircleOutline className="text-gray-700" />
+      <span className="text-sm font-medium text-gray-500">Add a list</span>
     </button>
   );
 };
