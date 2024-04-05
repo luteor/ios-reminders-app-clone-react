@@ -2,24 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { colors } from "@assets/colors";
-import { getDisplayColors } from "@utils/getDisplayColors";
+import { useData } from "@hooks/useData";
+import { getDisplayColors } from "@utils/colorUtils";
 import EmojiPicker from "emoji-picker-react";
 import { BsEmojiGrin } from "react-icons/bs";
 import { IoListSharp } from "react-icons/io5";
 
-export const AddListModal = ({
-  reminderLists,
-  setIsAddListModalOpen,
-  setReminderLists,
-}) => {
+export const AddListModal = ({ reminderLists, setIsAddListModalOpen }) => {
   const [newList, setNewList] = useState({
     color: "red",
     icon: undefined,
     name: "",
   });
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
+
   const emojiPickerRef = useRef(null);
   const firstInputRef = useRef(null);
+
+  const { setReminderLists } = useData();
 
   useEffect(() => {
     if (firstInputRef.current) {
@@ -28,7 +28,7 @@ export const AddListModal = ({
   }, []);
 
   useEffect(() => {
-    const handleClickOutsideEmojiPicker = (event) => {
+    const handleEmojiPickerClickOutside = (event) => {
       if (
         isEmojiPickerOpen &&
         emojiPickerRef.current &&
@@ -38,10 +38,10 @@ export const AddListModal = ({
       }
     };
 
-    document.addEventListener("click", handleClickOutsideEmojiPicker);
+    document.addEventListener("click", handleEmojiPickerClickOutside);
 
     return () => {
-      document.removeEventListener("click", handleClickOutsideEmojiPicker);
+      document.removeEventListener("click", handleEmojiPickerClickOutside);
     };
   }, [isEmojiPickerOpen]);
 
@@ -60,7 +60,7 @@ export const AddListModal = ({
     setNewList({ ...newList, icon: undefined });
   };
 
-  const handleSubmitAddListForm = (event) => {
+  const handleAddListFormSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
@@ -103,7 +103,7 @@ export const AddListModal = ({
       <form
         className="flex h-64 w-auto flex-col items-center justify-between gap-4 rounded-lg bg-gray-50 p-4 shadow-md"
         method="dialog"
-        onSubmit={handleSubmitAddListForm}
+        onSubmit={handleAddListFormSubmit}
       >
         <div className="flex flex-row  rounded bg-gray-200">
           <div className="flex w-36 items-center justify-center rounded border border-solid border-gray-300 bg-gray-50 text-sm shadow">

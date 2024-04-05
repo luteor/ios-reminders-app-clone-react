@@ -11,10 +11,11 @@ export const AddReminderButton = ({
     setIsAddReminderFormOpen(true);
   };
   return (
-    <div className="flex flex-row justify-end pb-6">
-      <button onClick={handleAddReminderButtonClick}>
-        <IoIosAdd size={30} />
-      </button>
-    </div>
+    <button
+      className="flex flex-row justify-end pb-6"
+      onClick={handleAddReminderButtonClick}
+    >
+      <IoIosAdd className="text-gray-500" size={30} />
+    </button>
   );
 };

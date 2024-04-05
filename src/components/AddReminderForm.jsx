@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
-import { getDisplayColors } from "@utils/getDisplayColors";
+import { useData } from "@hooks/useData";
+import { getDisplayColors } from "@utils/colorUtils";
 import { IoIosFlag } from "react-icons/io";
 import { IoFlagOutline } from "react-icons/io5";
 
 export const AddReminderForm = ({
   listColor,
-  listReminders,
   listTitle,
-  reminderLists,
   setIsAddReminderFormOpen,
-  setReminderLists,
 }) => {
   const [reminderContent, setReminderContent] = useState("");
   const [newReminderTags, setNewReminderTags] = useState([]);
@@ -19,6 +17,13 @@ export const AddReminderForm = ({
 
   const addReminderFormRef = useRef(null);
   const firstInputRef = useRef(null);
+  const newReminderTagsRef = useRef(null);
+
+  const { reminderLists, setReminderLists } = useData();
+
+  useEffect(() => {
+    newReminderTagsRef.current = newReminderTags;
+  }, [newReminderTags]);
 
   useEffect(() => {
     if (firstInputRef.current) {
@@ -75,11 +80,19 @@ export const AddReminderForm = ({
     formData.set("list", listTitle);
     const newReminderData = Object.fromEntries(formData);
 
+    const newReminderTags = newReminderTagsRef.current;
+
     if (newReminderData.content) {
-      const lastReminderId = listReminders.reduce(
-        (max, reminder) => (reminder.id > max ? reminder.id : max),
-        0,
-      );
+      const lastReminderId = reminderLists.reduce((maxReminderId, list) => {
+        const lastReminderIdInList = list.reminders.reduce(
+          (maxIdInList, reminder) => {
+            return Math.max(maxIdInList, reminder.id);
+          },
+          0,
+        );
+
+        return Math.max(maxReminderId, lastReminderIdInList);
+      }, 0);
 
       const newReminder = {
         content: newReminderData.content,
@@ -159,22 +172,6 @@ export const AddReminderForm = ({
               type="text"
             />
 
-            {/* <label className="sr-only" htmlFor="reminder-tags">
-              Tags
-            </label>
-            <input
-              className="w-full text-sm text-gray-500 outline-none"
-              id="reminder-tags"
-              name="tags"
-              onFocus={() =>
-                !reminderContentValue
-                  ? setReminderContentValue("New element")
-                  : null
-              }
-              placeholder="Add tags"
-              type="text"
-            /> */}
-
             <label className="sr-only" htmlFor="reminder-tags">
               Tags
             </label>
@@ -220,6 +217,9 @@ export const AddReminderForm = ({
                 id="reminder-date"
                 name="date"
                 onChange={(event) => setHasReminderDate(!!event.target.value)}
+                onFocus={() =>
+                  !reminderContent ? setReminderContent("New element") : null
+                }
                 type="date"
               />
               {hasReminderDate && (
@@ -255,6 +255,9 @@ export const AddReminderForm = ({
                   className="peer h-5 w-5 appearance-none rounded-full p-1 "
                   id="reminder-flag"
                   name="flag"
+                  onFocus={() =>
+                    !reminderContent ? setReminderContent("New element") : null
+                  }
                   type="checkbox"
                 />
                 <IoFlagOutline className=" pointer-events-none absolute left-1/2 h-6 w-6 -translate-x-1/2 rounded bg-gray-100  p-1.5 text-gray-500 opacity-100 peer-checked:opacity-0" />
